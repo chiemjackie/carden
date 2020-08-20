@@ -3,8 +3,10 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 import logo_and_carden from "../assets/logo_and_carden.png";
+import { COLORS } from "../constants";
 
 const Navbar = () => {
+  console.log(COLORS);
   return (
     <NavbarWrapper>
       <NavLeftSection>
@@ -19,7 +21,7 @@ const Navbar = () => {
       </NavLeftSection>
       <NavRightSection>
         <NavItem>
-          <StyledLink to="/login">SIGN UP / LOGIN</StyledLink>
+          <StyledLink to="/login">ACCOUNT</StyledLink>
         </NavItem>
         <NavItem>
           <StyledLink to="/profile">PLAYERS</StyledLink>
@@ -34,7 +36,7 @@ const NavbarWrapper = styled.nav`
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  margin: 15px;
+  margin: 10px 15px;
 `;
 
 const NavItem = styled.li``;
@@ -51,11 +53,13 @@ const NavRightSection = styled.div`
 `;
 
 const StyledLogo = styled.img`
+  margin-top: 3px;
   height: 60px;
 `;
 
 const StyledLink = styled(NavLink)`
-  margin-left: 30px;
+  margin-left: 50px;
+  color: #${COLORS.secondary};
 `;
 
 export default Navbar;

@@ -5,7 +5,6 @@
     {
       "src": "favicon.ico",
       "sizes": "64x45 32x23 24x17 16x11",
-      // "sizes": "64x45.71 32x22.86 24x17.14 16x11.42",
       "type": "image/x-icon"
     }
   ],
