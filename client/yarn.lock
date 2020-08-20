@@ -9012,6 +9012,11 @@ react-is@^16.12.0, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.0, react-i
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-playing-card@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/react-playing-card/-/react-playing-card-0.2.5.tgz#048d6dfa5c539d2e13bceedf88f8b7015adf21da"
+  integrity sha1-BI1t+lxTnS4TvO7fiPi3AVrfIdo=
+
 react-redux@^7.2.1:
   version "7.2.1"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.1.tgz#8dedf784901014db2feca1ab633864dee68ad985"
