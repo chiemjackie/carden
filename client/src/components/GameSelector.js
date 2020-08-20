@@ -18,16 +18,21 @@ const GameSelector = () => {
 const SelectorPageWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin: 400px;
+  justify-content: space-evenly;
 `;
 
 const Selector = styled(NavLink)`
   color: red;
 `;
 
-const WarSelectorWrapper = styled.div``;
+const WarSelectorWrapper = styled.div`
+  background: green;
+  padding: 300px;
+`;
 
-const GoFishSelectorWrapper = styled.div``;
+const GoFishSelectorWrapper = styled.div`
+  background: blue;
+  padding: 300px;
+`;
 
 export default GameSelector;

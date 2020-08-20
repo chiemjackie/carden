@@ -6,7 +6,6 @@ import logo_and_carden from "../assets/logo_and_carden.png";
 import { COLORS } from "../constants";
 
 const Navbar = () => {
-  console.log(COLORS);
   return (
     <NavbarWrapper>
       <NavLeftSection>
@@ -36,7 +35,7 @@ const NavbarWrapper = styled.nav`
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  margin: 10px 15px;
+  margin: 10px 15px 30px;
 `;
 
 const NavItem = styled.li``;
@@ -59,6 +58,7 @@ const StyledLogo = styled.img`
 
 const StyledLink = styled(NavLink)`
   margin-left: 50px;
+  font-weight: bold;
   color: #${COLORS.secondary};
 `;
 
