@@ -4,12 +4,88 @@ import styled from "styled-components";
 import { COLORS } from "../../constants";
 
 const AgainstHouse = () => {
+  const opponentDeck = [
+    1,
+    1,
+    2,
+    2,
+    3,
+    3,
+    4,
+    4,
+    5,
+    5,
+    6,
+    6,
+    7,
+    7,
+    8,
+    8,
+    9,
+    9,
+    10,
+    10,
+    11,
+    11,
+    12,
+    12,
+    13,
+    13,
+  ];
+  const selfDeck = [
+    1,
+    1,
+    2,
+    2,
+    3,
+    3,
+    4,
+    4,
+    5,
+    5,
+    6,
+    6,
+    7,
+    7,
+    8,
+    8,
+    9,
+    9,
+    10,
+    10,
+    11,
+    11,
+    12,
+    12,
+    13,
+    13,
+  ];
+
+  for (let i = opponentDeck.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    let temp = opponentDeck[i];
+    opponentDeck[i] = opponentDeck[j];
+    opponentDeck[j] = temp;
+  }
+
+  for (let i = selfDeck.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    let temp = selfDeck[i];
+    selfDeck[i] = selfDeck[j];
+    selfDeck[j] = temp;
+  }
+
+  console.log(opponentDeck);
+  console.log(selfDeck);
+
   const [turn, setTurn] = useState(0);
   const [opponentCard, setOpponentCard] = useState("");
   const [selfCard, setSelfCard] = useState("");
   const [gameStatus, setGameStatus] = useState("Press to start the game");
-  const [opponentRemainingCards, setOpponentRemainingCards] = useState(26);
-  const [selfRemainingCards, setSelfRemainingCards] = useState(26);
+  const [opponentRemainingCards, setOpponentRemainingCards] = useState(
+    opponentDeck.length
+  );
+  const [selfRemainingCards, setSelfRemainingCards] = useState(selfDeck.length);
   // const [winStatus, setWinStatus] = useState("null");
 
   function incrementTurn() {
