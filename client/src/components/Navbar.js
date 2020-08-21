@@ -35,7 +35,7 @@ const NavbarWrapper = styled.nav`
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  margin: 10px 15px 30px;
+  margin: 5px 15px 30px;
 `;
 
 const NavItem = styled.li``;
@@ -52,14 +52,14 @@ const NavRightSection = styled.div`
 `;
 
 const StyledLogo = styled.img`
-  margin-top: 3px;
+  margin-top: 5px;
   height: 60px;
 `;
 
 const StyledLink = styled(NavLink)`
   margin-left: 50px;
   font-weight: bold;
-  color: #${COLORS.secondary};
+  color: ${COLORS.secondary};
 `;
 
 export default Navbar;

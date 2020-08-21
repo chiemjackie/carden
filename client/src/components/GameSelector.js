@@ -22,17 +22,17 @@ const SelectorPageWrapper = styled.div`
 `;
 
 const Selector = styled(NavLink)`
-  color: red;
+  color: white;
 `;
 
 const WarSelectorWrapper = styled.div`
   background: green;
-  padding: 300px;
+  padding: 30px;
 `;
 
 const GoFishSelectorWrapper = styled.div`
   background: blue;
-  padding: 300px;
+  padding: 30px;
 `;
 
 export default GameSelector;
