@@ -55,15 +55,10 @@ const War = () => {
 // <StyledCard rank="J" suit="C" />;
 // const StyledCard = styled(Card)``;
 
-const SelectionWrapper = styled.section`
+const SelectionWrapper = styled.div`
   display: flex;
   margin: 0 20px;
   justify-content: space-around;
-`;
-
-const WarWrapper = styled.section`
-  /* display: flex; */
-  margin: 0 20px;
 `;
 
 const PlayAgainstText = styled.div`
