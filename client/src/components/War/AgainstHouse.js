@@ -7,9 +7,10 @@ const AgainstHouse = () => {
   const [turn, setTurn] = useState(0);
   const [opponentCard, setOpponentCard] = useState("");
   const [selfCard, setSelfCard] = useState("");
-  const [status, setStatus] = useState("Press to start the game");
+  const [gameStatus, setGameStatus] = useState("Press to start the game");
   const [opponentRemainingCards, setOpponentRemainingCards] = useState(26);
   const [selfRemainingCards, setSelfRemainingCards] = useState(26);
+  // const [winStatus, setWinStatus] = useState("null");
 
   function incrementTurn() {
     setTurn(turn + 1);
@@ -17,8 +18,6 @@ const AgainstHouse = () => {
     const newSelfCard = Math.ceil(Math.random() * 13);
     setOpponentCard(newOpponentCard);
     setSelfCard(newSelfCard);
-    // setOpponentRemainingCards(opponentRemainingCards - 1);
-    // setSelfRemainingCards(selfRemainingCards - 1);
     updateStatus(newOpponentCard, newSelfCard);
   }
 
@@ -26,13 +25,13 @@ const AgainstHouse = () => {
     if (newOpponentCard > newSelfCard) {
       setOpponentRemainingCards(opponentRemainingCards + 1);
       setSelfRemainingCards(selfRemainingCards - 1);
-      setStatus("lost");
+      setGameStatus("lost");
     } else if (newOpponentCard < newSelfCard) {
-      setStatus("won");
+      setGameStatus("won");
       setSelfRemainingCards(selfRemainingCards + 1);
       setOpponentRemainingCards(opponentRemainingCards - 1);
     } else {
-      setStatus("draw");
+      setGameStatus("draw");
     }
   };
 
@@ -45,9 +44,11 @@ const AgainstHouse = () => {
         <CardPlaceholder>{opponentCard}</CardPlaceholder>
       </OpponentSide>
       <GameFunctions>
+        {opponentRemainingCards === 0 && <div>You won!</div>}
+        {selfRemainingCards === 0 && <div>You lost!</div>}
         <GameText>Hit next I guess</GameText>
         <NextButton onClick={incrementTurn}>Next turn</NextButton>
-        <Status>{status}</Status>
+        <Status>{gameStatus}</Status>
       </GameFunctions>
       <SelfSide>
         <CardPlaceholder>Cards remaining: {selfRemainingCards}</CardPlaceholder>
