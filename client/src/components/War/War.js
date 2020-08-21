@@ -29,8 +29,8 @@ const War = () => {
     setSelection("friend");
   }
 
-  console.log(status);
-  console.log(selection);
+  // console.log(status);
+  // console.log(selection);
 
   if (status === "selecting") {
     return <AgainstHouse />;
