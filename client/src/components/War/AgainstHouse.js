@@ -65,6 +65,7 @@ let selfCurrentCard = "";
 let battleCards = 0;
 let oppCardsInBattle = [];
 let selfCardsInBattle = [];
+let disableButtonStatus = false;
 
 const initShuffle = () => {
   for (let i = startingDeck.length - 1; i > 0; i--) {
@@ -87,7 +88,8 @@ initShuffle();
 
 const AgainstHouse = () => {
   const [turn, setTurn] = useState(0);
-  const [gameStatus, setGameStatus] = useState("Start");
+  const [gameStatus, setGameStatus] = useState("Commence the war!");
+  const [gameText, setGameText] = useState("No prisoners.");
 
   let oppRemainingCards = oppDeck.length - battleCards;
   let selfRemainingCards = selfDeck.length - battleCards;
@@ -105,7 +107,10 @@ const AgainstHouse = () => {
 
   const updateDecksAndStatus = () => {
     if (oppCurrentCard > selfCurrentCard) {
-      setGameStatus("Battle lost!");
+      setGameStatus("Battle LOST!");
+      setGameText(
+        `Cards ${oppCurrentCard} and ${selfCurrentCard}, and any cards at war are placed in the opponents' deck.`
+      );
       oppDeck.push(oppCurrentCard, selfCurrentCard);
       while (battleCards > 0) {
         oppDeck.push(selfDeck.shift());
@@ -119,7 +124,10 @@ const AgainstHouse = () => {
       oppCardsInBattle = [];
       selfCardsInBattle = [];
     } else if (oppCurrentCard < selfCurrentCard) {
-      setGameStatus("Battle won!");
+      setGameStatus("Battle WON!");
+      setGameText(
+        `Cards ${oppCurrentCard} and ${selfCurrentCard}, and any cards at war are placed in your deck.`
+      );
       selfDeck.push(selfCurrentCard, oppCurrentCard);
       while (battleCards > 0) {
         selfDeck.push(oppDeck.shift());
@@ -133,7 +141,8 @@ const AgainstHouse = () => {
       oppCardsInBattle = [];
       selfCardsInBattle = [];
     } else {
-      setGameStatus("Heated battle!");
+      setGameStatus("War!");
+      setGameText("Pull another card to settle this battle, winner takes all.");
       oppCardsInBattle.push(oppCurrentCard);
       selfCardsInBattle.push(selfCurrentCard);
       battleCards++;
@@ -143,14 +152,19 @@ const AgainstHouse = () => {
   const checkIfWon = () => {
     if (oppCurrentCard > selfCurrentCard && selfDeck.length <= 0) {
       setGameStatus("You've LOST the war!");
+      setGameText("Welp, now we're extinct.");
+      disableButton();
     } else if (oppCurrentCard < selfCurrentCard && oppDeck.length <= 0) {
       setGameStatus("You've WON the war!");
+      setGameText("Nice.");
+      disableButton();
     }
   };
 
   const reset = () => {
     setTurn(0);
     setGameStatus("Start");
+    setGameText("No prisoners.");
     oppDeck = [];
     selfDeck = [];
     oppCurrentCard = "";
@@ -158,7 +172,12 @@ const AgainstHouse = () => {
     battleCards = 0;
     oppCardsInBattle = [];
     selfCardsInBattle = [];
+    disableButtonStatus = false;
     initShuffle();
+  };
+
+  const disableButton = () => {
+    disableButtonStatus = true;
   };
 
   return (
@@ -167,7 +186,6 @@ const AgainstHouse = () => {
         <CardPlaceholder>Cards remaining: {oppRemainingCards}</CardPlaceholder>
         <CardPlaceholder>{oppCurrentCard}</CardPlaceholder>
         <CardPlaceholder>
-          {" "}
           <div>
             <div>
               Upside-down cards: <div>{battleCards}</div>
@@ -184,17 +202,25 @@ const AgainstHouse = () => {
         </CardPlaceholder>
       </OppSide>
       <GameFunctions>
-        <GameText>Hit next I guess</GameText>
-        <NextButton onClick={incrementTurn}>Next turn</NextButton>
-        <Rounds>Round: {turn}</Rounds>
-        <Status>{gameStatus}</Status>
-        <NextButton onClick={reset}>Reset</NextButton>
+        <GameFunctionsLeft>
+          <Rounds>Round: {turn}</Rounds>
+        </GameFunctionsLeft>
+        <GameFunctionsCentre>
+          <GameStatus>{gameStatus}</GameStatus>
+          <LineBreak />
+          <GameText>{gameText}</GameText>
+        </GameFunctionsCentre>
+        <GameFunctionsRight>
+          <NextButton onClick={incrementTurn} disabled={disableButtonStatus}>
+            Next turn
+          </NextButton>
+          <ResetButton onClick={reset}>Reset</ResetButton>
+        </GameFunctionsRight>
       </GameFunctions>
       <SelfSide>
         <CardPlaceholder>Cards remaining: {selfRemainingCards}</CardPlaceholder>
         <CardPlaceholder>{selfCurrentCard}</CardPlaceholder>
         <CardPlaceholder>
-          {/* <div>Battle Cards: {battleCards}</div> */}
           <div>
             <div>
               Upside-down cards: <div>{battleCards}</div>
@@ -243,24 +269,51 @@ const GameFunctions = styled.section`
   height: 12%;
   /* background-color: red; */
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   /* border: 1px solid black; */
 `;
 
-const GameText = styled.p`
+const GameFunctionsLeft = styled.div``;
+
+const GameFunctionsCentre = styled.div`
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  text-align: center;
+  width: 25%;
+  height: 100%;
+`;
+
+const GameFunctionsRight = styled.div``;
+
+const NextButton = styled.button``;
+
+const ResetButton = styled.button`
+  margin: 0 10vw;
+`;
+
+const GameStatus = styled.p`
+  /* background-color: green; */
   color: ${COLORS.secondary};
+  height: 40%;
+  /* margin-top: 5%; */
+  padding-top: 4%;
 `;
 
-const NextButton = styled.button`
-  margin-left: 30px;
+const GameText = styled.p`
+  display: flex;
+  /* background-color: purple; */
+  align-items: center;
+  height: 60%;
+  padding-bottom: 4%;
 `;
-
-const Status = styled.div`
-  margin-left: 30px;
+const LineBreak = styled.div`
+  width: 100%;
+  height: 0px;
 `;
 
 const Rounds = styled.div`
-  margin-left: 30px;
+  margin: 0 15vw 0 10vw;
 `;
 
 const CardPlaceholder = styled.div`
