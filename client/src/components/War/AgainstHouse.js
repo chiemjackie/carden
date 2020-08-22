@@ -57,14 +57,14 @@ const startingDeck = [
   13,
   13,
 ];
-const oppDeck = [];
-const selfDeck = [];
+let oppDeck = [];
+let selfDeck = [];
 
 let oppCurrentCard = "";
 let selfCurrentCard = "";
 let battleCards = 0;
-const oppCardsAtWar = [];
-const selfCardsAtWar = [];
+let oppCardsInBattle = [];
+let selfCardsInBattle = [];
 
 const initShuffle = () => {
   for (let i = startingDeck.length - 1; i > 0; i--) {
@@ -86,12 +86,6 @@ const splitDeck = () => {
 initShuffle();
 
 const AgainstHouse = () => {
-  console.log("opp", oppDeck);
-  console.log("self", selfDeck);
-
-  // console.log(oppCardsAtWar);
-  // console.log(selfCardsAtWar);
-
   const [turn, setTurn] = useState(0);
   const [gameStatus, setGameStatus] = useState("Start");
 
@@ -103,43 +97,68 @@ const AgainstHouse = () => {
     oppCurrentCard = oppDeck.shift();
     selfCurrentCard = selfDeck.shift();
     updateDecksAndStatus();
+    checkIfWon();
   };
+
+  console.log(selfRemainingCards);
+  console.log(oppRemainingCards);
 
   const updateDecksAndStatus = () => {
     if (oppCurrentCard > selfCurrentCard) {
-      setGameStatus("Lost");
+      setGameStatus("Battle lost!");
       oppDeck.push(oppCurrentCard, selfCurrentCard);
       while (battleCards > 0) {
         oppDeck.push(selfDeck.shift());
         oppDeck.push(oppDeck.shift());
         battleCards--;
       }
-      for (let i = 0; i < oppCardsAtWar.length; i++) {
-        oppDeck.push(oppCardsAtWar[i]);
-        oppDeck.push(selfCardsAtWar[i]);
+      for (let i = 0; i < oppCardsInBattle.length; i++) {
+        oppDeck.push(oppCardsInBattle[i]);
+        oppDeck.push(selfCardsInBattle[i]);
       }
-      oppCardsAtWar = [];
-      selfCardsAtWar = [];
+      oppCardsInBattle = [];
+      selfCardsInBattle = [];
     } else if (oppCurrentCard < selfCurrentCard) {
-      setGameStatus("Won");
+      setGameStatus("Battle won!");
       selfDeck.push(selfCurrentCard, oppCurrentCard);
       while (battleCards > 0) {
         selfDeck.push(oppDeck.shift());
         selfDeck.push(selfDeck.shift());
         battleCards--;
       }
-      for (let i = 0; i < oppCardsAtWar.length; i++) {
-        selfDeck.push(oppCardsAtWar[i]);
-        selfDeck.push(selfCardsAtWar[i]);
+      for (let i = 0; i < oppCardsInBattle.length; i++) {
+        selfDeck.push(oppCardsInBattle[i]);
+        selfDeck.push(selfCardsInBattle[i]);
       }
-      oppCardsAtWar = [];
-      selfCardsAtWar = [];
+      oppCardsInBattle = [];
+      selfCardsInBattle = [];
     } else {
-      setGameStatus("War!");
-      oppCardsAtWar.push(oppCurrentCard);
-      selfCardsAtWar.push(selfCurrentCard);
+      setGameStatus("Heated battle!");
+      oppCardsInBattle.push(oppCurrentCard);
+      selfCardsInBattle.push(selfCurrentCard);
       battleCards++;
     }
+  };
+
+  const checkIfWon = () => {
+    if (oppCurrentCard > selfCurrentCard && selfDeck.length <= 0) {
+      setGameStatus("You've LOST the war!");
+    } else if (oppCurrentCard < selfCurrentCard && oppDeck.length <= 0) {
+      setGameStatus("You've WON the war!");
+    }
+  };
+
+  const reset = () => {
+    setTurn(0);
+    setGameStatus("Start");
+    oppDeck = [];
+    selfDeck = [];
+    oppCurrentCard = "";
+    selfCurrentCard = "";
+    battleCards = 0;
+    oppCardsInBattle = [];
+    selfCardsInBattle = [];
+    initShuffle();
   };
 
   return (
@@ -155,8 +174,8 @@ const AgainstHouse = () => {
             </div>
             <div>
               Card(s) at war:
-              {oppCardsAtWar.length > 0 ? (
-                oppCardsAtWar.map((card) => <div key="card"> {card} </div>)
+              {oppCardsInBattle.length > 0 ? (
+                oppCardsInBattle.map((card) => <div key="card"> {card} </div>)
               ) : (
                 <div>None</div>
               )}
@@ -165,12 +184,11 @@ const AgainstHouse = () => {
         </CardPlaceholder>
       </OppSide>
       <GameFunctions>
-        {oppRemainingCards === 0 && <div>You won!</div>}
-        {selfRemainingCards === 0 && <div>You lost!</div>}
         <GameText>Hit next I guess</GameText>
         <NextButton onClick={incrementTurn}>Next turn</NextButton>
         <Rounds>Round: {turn}</Rounds>
         <Status>{gameStatus}</Status>
+        <NextButton onClick={reset}>Reset</NextButton>
       </GameFunctions>
       <SelfSide>
         <CardPlaceholder>Cards remaining: {selfRemainingCards}</CardPlaceholder>
@@ -183,8 +201,8 @@ const AgainstHouse = () => {
             </div>
             <div>
               Card(s) at war:
-              {selfCardsAtWar.length > 0 ? (
-                selfCardsAtWar.map((card) => <div key="card"> {card} </div>)
+              {selfCardsInBattle.length > 0 ? (
+                selfCardsInBattle.map((card) => <div key="card"> {card} </div>)
               ) : (
                 <div>None</div>
               )}
