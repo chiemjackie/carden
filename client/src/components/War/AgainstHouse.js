@@ -66,6 +66,9 @@ let battleCards = 0;
 let oppCardsInBattle = [];
 let selfCardsInBattle = [];
 let disableButtonStatus = false;
+let enableAutoPlay = false;
+let interval;
+let turn = 0;
 
 const initShuffle = () => {
   for (let i = startingDeck.length - 1; i > 0; i--) {
@@ -87,23 +90,31 @@ const splitDeck = () => {
 initShuffle();
 
 const AgainstHouse = () => {
-  const [turn, setTurn] = useState(0);
+  console.log(oppDeck);
+  console.log(selfDeck);
+
   const [gameStatus, setGameStatus] = useState("Commence the war!");
   const [gameText, setGameText] = useState("No prisoners.");
 
   let oppRemainingCards = oppDeck.length - battleCards;
   let selfRemainingCards = selfDeck.length - battleCards;
 
+  let difference = (oppDeck.length + selfDeck.length) / 2;
+
+  const toggleAutoPlay = () => {
+    enableAutoPlay = !enableAutoPlay;
+    if (enableAutoPlay) {
+      interval = setInterval(incrementTurn, 1000);
+    } else clearInterval(interval);
+  };
+
   const incrementTurn = () => {
-    setTurn(turn + 1);
+    turn++;
     oppCurrentCard = oppDeck.shift();
     selfCurrentCard = selfDeck.shift();
     updateDecksAndStatus();
-    checkIfWon();
+    checkIfGameOver();
   };
-
-  console.log(selfRemainingCards);
-  console.log(oppRemainingCards);
 
   const updateDecksAndStatus = () => {
     if (oppCurrentCard > selfCurrentCard) {
@@ -149,20 +160,22 @@ const AgainstHouse = () => {
     }
   };
 
-  const checkIfWon = () => {
+  const checkIfGameOver = () => {
     if (oppCurrentCard > selfCurrentCard && selfDeck.length <= 0) {
       setGameStatus("You've LOST the war!");
       setGameText("Welp, now we're extinct.");
       disableButton();
+      clearInterval(interval);
     } else if (oppCurrentCard < selfCurrentCard && oppDeck.length <= 0) {
       setGameStatus("You've WON the war!");
       setGameText("Nice.");
       disableButton();
+      clearInterval(interval);
     }
   };
 
   const reset = () => {
-    setTurn(0);
+    turn = 0;
     setGameStatus("Start");
     setGameText("No prisoners.");
     oppDeck = [];
@@ -173,6 +186,7 @@ const AgainstHouse = () => {
     oppCardsInBattle = [];
     selfCardsInBattle = [];
     disableButtonStatus = false;
+    clearInterval(interval);
     initShuffle();
   };
 
@@ -203,7 +217,9 @@ const AgainstHouse = () => {
       </OppSide>
       <GameFunctions>
         <GameFunctionsLeft>
-          <Rounds>Round: {turn}</Rounds>
+          <Rounds>
+            Round: {turn} DIFFERENCE: {difference}
+          </Rounds>
         </GameFunctionsLeft>
         <GameFunctionsCentre>
           <GameStatus>{gameStatus}</GameStatus>
@@ -214,6 +230,12 @@ const AgainstHouse = () => {
           <NextButton onClick={incrementTurn} disabled={disableButtonStatus}>
             Next turn
           </NextButton>
+          <AutoPlayButton
+            onClick={toggleAutoPlay}
+            disabled={disableButtonStatus}
+          >
+            Auto Play
+          </AutoPlayButton>
           <ResetButton onClick={reset}>Reset</ResetButton>
         </GameFunctionsRight>
       </GameFunctions>
@@ -267,10 +289,8 @@ const SelfSide = styled.section`
 const GameFunctions = styled.section`
   display: flex;
   height: 12%;
-  /* background-color: red; */
   align-items: center;
   justify-content: space-between;
-  /* border: 1px solid black; */
 `;
 
 const GameFunctionsLeft = styled.div``;
@@ -282,27 +302,29 @@ const GameFunctionsCentre = styled.div`
   text-align: center;
   width: 25%;
   height: 100%;
+  /* font-size: 2vw; */
 `;
 
 const GameFunctionsRight = styled.div``;
 
-const NextButton = styled.button``;
+const AutoPlayButton = styled.button``;
+
+const NextButton = styled.button`
+  margin-right: 3vw;
+`;
 
 const ResetButton = styled.button`
-  margin: 0 10vw;
+  margin: 0 3vw;
 `;
 
 const GameStatus = styled.p`
-  /* background-color: green; */
   color: ${COLORS.secondary};
   height: 40%;
-  /* margin-top: 5%; */
   padding-top: 4%;
 `;
 
 const GameText = styled.p`
   display: flex;
-  /* background-color: purple; */
   align-items: center;
   height: 60%;
   padding-bottom: 4%;
@@ -313,7 +335,7 @@ const LineBreak = styled.div`
 `;
 
 const Rounds = styled.div`
-  margin: 0 15vw 0 10vw;
+  margin: 0 0 0 3vw;
 `;
 
 const CardPlaceholder = styled.div`
@@ -325,6 +347,7 @@ const CardPlaceholder = styled.div`
   align-items: center;
   justify-content: center;
   background-color: white;
+  font-size: 24px;
 `;
 
 export default AgainstHouse;
