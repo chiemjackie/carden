@@ -99,12 +99,10 @@ const AgainstHouse = () => {
   let oppRemainingCards = oppDeck.length - battleCards;
   let selfRemainingCards = selfDeck.length - battleCards;
 
-  let difference = (oppDeck.length + selfDeck.length) / 2;
-
   const toggleAutoPlay = () => {
     enableAutoPlay = !enableAutoPlay;
     if (enableAutoPlay) {
-      interval = setInterval(incrementTurn, 1000);
+      interval = setInterval(incrementTurn, 50);
     } else clearInterval(interval);
   };
 
@@ -118,11 +116,11 @@ const AgainstHouse = () => {
 
   const updateDecksAndStatus = () => {
     if (oppCurrentCard > selfCurrentCard) {
+      oppDeck.push(oppCurrentCard, selfCurrentCard);
       setGameStatus("Battle LOST!");
       setGameText(
         `Cards ${oppCurrentCard} and ${selfCurrentCard}, and any cards at war are placed in the opponents' deck.`
       );
-      oppDeck.push(oppCurrentCard, selfCurrentCard);
       while (battleCards > 0) {
         oppDeck.push(selfDeck.shift());
         oppDeck.push(oppDeck.shift());
@@ -135,11 +133,11 @@ const AgainstHouse = () => {
       oppCardsInBattle = [];
       selfCardsInBattle = [];
     } else if (oppCurrentCard < selfCurrentCard) {
+      selfDeck.push(selfCurrentCard, oppCurrentCard);
       setGameStatus("Battle WON!");
       setGameText(
         `Cards ${oppCurrentCard} and ${selfCurrentCard}, and any cards at war are placed in your deck.`
       );
-      selfDeck.push(selfCurrentCard, oppCurrentCard);
       while (battleCards > 0) {
         selfDeck.push(oppDeck.shift());
         selfDeck.push(selfDeck.shift());
@@ -186,6 +184,7 @@ const AgainstHouse = () => {
     oppCardsInBattle = [];
     selfCardsInBattle = [];
     disableButtonStatus = false;
+    enableAutoPlay = false;
     clearInterval(interval);
     initShuffle();
   };
@@ -217,9 +216,7 @@ const AgainstHouse = () => {
       </OppSide>
       <GameFunctions>
         <GameFunctionsLeft>
-          <Rounds>
-            Round: {turn} DIFFERENCE: {difference}
-          </Rounds>
+          <Rounds>Round: {turn}</Rounds>
         </GameFunctionsLeft>
         <GameFunctionsCentre>
           <GameStatus>{gameStatus}</GameStatus>
