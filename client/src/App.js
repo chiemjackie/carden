@@ -10,6 +10,7 @@ import GameSelector from "./components/GameSelector";
 import Login from "./components/Login";
 import ProfileSearch from "./components/ProfileSearch";
 import Profile from "./components/Profile";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Profile />
           </Route>
         </Switch>
+        <Footer />
       </Router>
     </>
   );
