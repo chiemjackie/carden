@@ -7,6 +7,8 @@ import Homepage from "./components/Homepage";
 import War from "./components/War/War";
 import GoFish from "./components/GoFish/GoFish";
 import GameSelector from "./components/GameSelector";
+import Guest from "./components/Guest";
+import Signup from "./components/Signup";
 import Login from "./components/Login";
 import ProfileSearch from "./components/ProfileSearch";
 import Profile from "./components/Profile";
@@ -30,6 +32,12 @@ function App() {
           </Route>
           <Route exact path="/play/gofish">
             <GoFish />
+          </Route>
+          <Route exact path="/guest">
+            <Guest />
+          </Route>
+          <Route exact path="/signup">
+            <Signup />
           </Route>
           <Route exact path="/login">
             <Login />
