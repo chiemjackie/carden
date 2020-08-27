@@ -1,4 +1,5 @@
 const { MongoClient } = require("mongodb");
+const { request } = require("express");
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -8,7 +9,7 @@ const options = {
   useUnifiedTopology: true,
 };
 
-const createUser = async () => {
+const addUser = async () => {
   const client = await MongoClient(MONGO_URI, options);
 
   await client.connect();
@@ -47,7 +48,7 @@ const getUser = async (req, res) => {
 
   const data = await db
     .collection("users")
-    .find({ username: "test", password: "test" })
+    .find({ username: `${req.body.username}` })
     .toArray();
   console.log(data[0]);
   console.log(data.length);
@@ -64,6 +65,4 @@ const getUser = async (req, res) => {
   }
 };
 
-getUser();
-
-module.exports = { createUser, getUser };
+module.exports = { addUser, getUser };
