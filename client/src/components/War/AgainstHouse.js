@@ -90,9 +90,6 @@ const splitDeck = () => {
 initShuffle();
 
 const AgainstHouse = () => {
-  console.log("OPP", oppDeck);
-  console.log("SELF", selfDeck);
-
   const [gameStatus, setGameStatus] = useState("Commence the war!");
   const [gameText, setGameText] = useState("No prisoners.");
 
@@ -165,10 +162,8 @@ const AgainstHouse = () => {
       (oppDeck.length === 0 || selfDeck.length === 0) &&
       oppCurrentCard === selfCurrentCard
     ) {
-      oppRemainingCards =
-        oppRemainingCards + battleCards + oppCardsInBattle.length;
-      selfRemainingCards =
-        selfRemainingCards + battleCards + selfCardsInBattle.length;
+      oppRemainingCards = oppRemainingCards + battleCards;
+      selfRemainingCards = selfRemainingCards + battleCards;
       battleCards = 0;
       oppCardsInBattle = [];
       selfCardsInBattle = [];
@@ -217,6 +212,9 @@ const AgainstHouse = () => {
   const disableButton = () => {
     disableButtonStatus = true;
   };
+
+  console.log("OPP", oppDeck);
+  console.log("SELF", selfDeck);
 
   return (
     <GameWrapper>

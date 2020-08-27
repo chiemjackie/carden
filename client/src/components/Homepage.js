@@ -13,19 +13,14 @@ const Homepage = () => {
           gambling problem? You're in the right place.
         </HomepageElementContent>
       </HomepageElement>
-      <HomepageLink to="guest">
+      <HomepageLink to="/guest">
         <HomepageElementContent>
           I don't need an account, let's just play!
         </HomepageElementContent>
       </HomepageLink>
-      <HomepageLink to="/signup">
+      <HomepageLink to="/account">
         <HomepageElementContent>
-          I want to set up an account.
-        </HomepageElementContent>
-      </HomepageLink>
-      <HomepageLink to="/login">
-        <HomepageElementContent>
-          Already set up - let's go play.
+          I want to set up an account, or I already have one - let's go play!
         </HomepageElementContent>
       </HomepageLink>
     </HomepageWrapper>

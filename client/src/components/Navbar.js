@@ -20,7 +20,7 @@ const Navbar = () => {
       </NavLeftSection>
       <NavRightSection>
         <NavItem>
-          <StyledLink to="/login">ACCOUNT</StyledLink>
+          <StyledLink to="/account">ACCOUNT</StyledLink>
         </NavItem>
         <NavItem>
           <StyledLink to="/profile">PLAYERS</StyledLink>
