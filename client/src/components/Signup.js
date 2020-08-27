@@ -21,13 +21,22 @@ const Signup = () => {
     let email = document.getElementById("email").value;
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
-    console.log({
-      fname: fname,
-      lname: lname,
-      email: email,
-      username: username,
-      password: password,
-    });
+
+    fetch("/account/signup", {
+      method: `post`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fname,
+        lname,
+        email,
+        username,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   };
 
   return (
@@ -35,7 +44,7 @@ const Signup = () => {
       <div>Register for an account</div>
       <form onSubmit={register}>
         <div>
-          <label for="fname">First name:</label>
+          <label htmlFor="fname">First name:</label>
           <input
             id="fname"
             name="fname"
@@ -43,7 +52,7 @@ const Signup = () => {
             placeholder=""
             required
           ></input>
-          <label for="lname">Last name:</label>
+          <label htmlFor="lname">Last name:</label>
           <input
             id="lname"
             name="lname"
@@ -53,7 +62,7 @@ const Signup = () => {
           ></input>
         </div>
         <div>
-          <label for="email">Email:</label>
+          <label htmlFor="email">Email:</label>
           <input
             id="email"
             name="email"
@@ -63,7 +72,7 @@ const Signup = () => {
           ></input>
         </div>
         <div>
-          <label for="username">Username:</label>
+          <label htmlFor="username">Username:</label>
           <input
             id="username"
             name="username"
@@ -73,7 +82,7 @@ const Signup = () => {
           ></input>
         </div>
         <div>
-          <label for="password">Password:</label>
+          <label htmlFor="password">Password:</label>
           <input
             id="password"
             name="password"

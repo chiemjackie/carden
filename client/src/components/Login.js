@@ -29,7 +29,7 @@ const Login = () => {
       <div>Login</div>
       <form onSubmit={login}>
         <div>
-          <label for="loginUsername">Username:</label>
+          <label htmlFor="loginUsername">Username:</label>
           <input
             id="loginUsername"
             name="loginUsername"
@@ -39,7 +39,7 @@ const Login = () => {
           ></input>
         </div>
         <div>
-          <label for="loginPassword">Password:</label>
+          <label htmlFor="loginPassword">Password:</label>
           <input
             id="loginPassword"
             name="loginPassword"
