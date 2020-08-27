@@ -9,33 +9,35 @@ const options = {
   useUnifiedTopology: true,
 };
 
-const addUser = async () => {
-  const client = await MongoClient(MONGO_URI, options);
+const addUser = async (req, res) => {
+  try {
+    const client = await MongoClient(MONGO_URI, options);
+    const input = req.body;
 
-  await client.connect();
+    await client.connect();
 
-  const db = client.db("carden");
-  console.log("connected!");
+    const db = client.db("carden");
+    console.log("connected!");
 
-  await db.collection("users").insertMany([
-    {
-      fname: "test",
-      lname: "test",
-      email: "test@test.com",
-      username: "test",
-      password: "test",
-    },
-    {
-      fname: "test2",
-      lname: "test2",
-      email: "test2@test.com",
-      username: "test2",
-      password: "test2",
-    },
-  ]);
+    await db.collection("users").insertOne(input);
 
-  client.close();
-  console.log("disconnected!");
+    client.close();
+    console.log("disconnected!");
+
+    res.status(201).json({
+      status: 201,
+      data: {
+        _id: input._id,
+        fname: input.fname,
+        lname: input.lname,
+        email: input.email,
+        username: input.username,
+        password: input.password,
+      },
+    });
+  } catch ({ message }) {
+    res.status(401).json({ status: 401, message: message });
+  }
 };
 
 const getUser = async (req, res) => {
@@ -51,7 +53,6 @@ const getUser = async (req, res) => {
     .find({ username: `${req.body.username}` })
     .toArray();
   console.log(data[0]);
-  console.log(data.length);
 
   client.close();
   console.log("disconnected!");
