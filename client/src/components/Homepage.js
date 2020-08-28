@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-// import { COLORS } from "../constants";
+import { COLORS } from "../constants";
 
 const Homepage = () => {
   return (
@@ -13,15 +13,15 @@ const Homepage = () => {
           gambling problem? You're in the right place.
         </HomepageElementContent>
       </HomepageElement>
-      <HomepageLink to="/guest">
-        <HomepageElementContent>
-          I don't need an account, let's just play!
-        </HomepageElementContent>
+      <HomepageLink to="/account">
+        <HomepageLinkContent>
+          Feeling rebellious? Play without an account!
+        </HomepageLinkContent>
       </HomepageLink>
       <HomepageLink to="/account">
-        <HomepageElementContent>
-          I want to set up an account, or I already have one - let's go play!
-        </HomepageElementContent>
+        <HomepageLinkContent>
+          Not a complete loser? Set up an account, or login and play!
+        </HomepageLinkContent>
       </HomepageLink>
     </HomepageWrapper>
   );
@@ -29,14 +29,22 @@ const Homepage = () => {
 
 const HomepageWrapper = styled.div``;
 
-const HomepageElement = styled.div``;
+const HomepageElement = styled.div`
+  padding: 10px;
+  background-color: ${COLORS.secondary};
+  margin: 10px;
+  color: white;
+`;
 
 const HomepageLink = styled(NavLink)``;
 
-const HomepageElementContent = styled.div`
+const HomepageElementContent = styled.p``;
+
+const HomepageLinkContent = styled.p`
   padding: 10px;
-  background-color: lightblue;
+  background-color: ${COLORS.tertiary};
   margin: 10px;
+  color: white;
 `;
 
 export default Homepage;

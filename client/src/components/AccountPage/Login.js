@@ -16,17 +16,29 @@ const Login = () => {
 
   const login = (event) => {
     event.preventDefault();
-    let username = document.getElementById("loginUsername").value;
-    let password = document.getElementById("loginPassword").value;
-    console.log({
-      username: username,
-      password: password,
-    });
+
+    let loginUsernameInput = document.getElementById("loginUsername").value;
+    let loginPasswordInput = document.getElementById("loginPassword").value;
+
+    const verifyUser = (allUsers) => {
+      for (let i = 0; i < allUsers.length; i++) {
+        if (
+          loginUsernameInput === allUsers[i].username &&
+          loginPasswordInput === allUsers[i].password
+        ) {
+          console.log("match found");
+        }
+      }
+    };
+
+    fetch("/account/login", {})
+      .then((res) => res.json())
+      .then((users) => verifyUser(users.data));
   };
 
   return (
     <div>
-      <div>Login</div>
+      <h2>Login</h2>
       <form onSubmit={login}>
         <div>
           <label htmlFor="loginUsername">Username:</label>

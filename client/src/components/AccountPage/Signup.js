@@ -28,11 +28,11 @@ const Signup = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        fname,
-        lname,
-        email,
-        username,
-        password,
+        fname: fname,
+        lname: lname,
+        email: email,
+        username: username,
+        password: password,
       }),
     })
       .then((res) => res.json())
@@ -41,7 +41,7 @@ const Signup = () => {
 
   return (
     <div>
-      <div>Register for an account</div>
+      <h2>Register for an account</h2>
       <form onSubmit={register}>
         <div>
           <label htmlFor="fname">First name:</label>

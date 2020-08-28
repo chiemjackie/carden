@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Login from "./Login";
 import Signup from "./Signup";
+import Guest from "./Guest";
 
 const Account = () => {
   return (
@@ -10,6 +11,8 @@ const Account = () => {
       <Signup />
       <Line />
       <Login />
+      <Line />
+      <Guest />
     </AccountWrapper>
   );
 };

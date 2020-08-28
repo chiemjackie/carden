@@ -40,7 +40,7 @@ const addUser = async (req, res) => {
   }
 };
 
-const getUser = async (req, res) => {
+const getUsers = async (req, res) => {
   const client = await MongoClient(MONGO_URI, options);
 
   await client.connect();
@@ -48,11 +48,7 @@ const getUser = async (req, res) => {
   const db = client.db("carden");
   console.log("connected!");
 
-  const data = await db
-    .collection("users")
-    .find({ username: `${req.body.username}` })
-    .toArray();
-  console.log(data[0]);
+  const data = await db.collection("users").find().toArray();
 
   client.close();
   console.log("disconnected!");
@@ -60,10 +56,8 @@ const getUser = async (req, res) => {
   if (data.length > 0) {
     res.status(200).json({ status: 200, data });
   } else {
-    res
-      .status(404)
-      .json({ status: 404, message: "Incorrect username or password" });
+    res.status(404).json({ status: 404, message: "Data MIA" });
   }
 };
 
-module.exports = { addUser, getUser };
+module.exports = { addUser, getUsers };
