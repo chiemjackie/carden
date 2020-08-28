@@ -4,6 +4,8 @@ import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 
 const Signup = () => {
   const [passwordType, setPasswordType] = useState("password");
+  const [emailTaken, setEmailTaken] = useState(false);
+  const [usernameTaken, setUsernameTaken] = useState(false);
 
   const toggleShowPassword = (event) => {
     event.preventDefault();
@@ -16,27 +18,51 @@ const Signup = () => {
 
   const register = (event) => {
     event.preventDefault();
-    let fname = document.getElementById("fname").value;
-    let lname = document.getElementById("lname").value;
-    let email = document.getElementById("email").value;
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+    let fnameInput = document.getElementById("fname").value;
+    let lnameInput = document.getElementById("lname").value;
+    let emailInput = document.getElementById("email").value;
+    let usernameInput = document.getElementById("username").value;
+    let passwordInput = document.getElementById("password").value;
 
-    fetch("/account/signup", {
-      method: `post`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fname: fname,
-        lname: lname,
-        email: email,
-        username: username,
-        password: password,
-      }),
-    })
+    const checkIfDuplicate = (allUsers) => {
+      let emailTakenFlag = false;
+      let usernameTakenFlag = false;
+
+      for (let i = 0; i < allUsers.length; i++) {
+        if (emailInput === allUsers[i].email) {
+          emailTakenFlag = true;
+        } else if (usernameInput === allUsers[i].username) {
+          usernameTakenFlag = true;
+        }
+      }
+
+      if (emailTakenFlag) {
+        setEmailTaken(true);
+      } else if (usernameTakenFlag) {
+        setUsernameTaken(true);
+      } else if (!emailTakenFlag && !usernameTakenFlag) {
+        createUser();
+      }
+    };
+
+    fetch("/account/login", {})
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((users) => checkIfDuplicate(users.data));
+
+    const createUser = () =>
+      fetch("/account/signup", {
+        method: `post`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fname: fnameInput,
+          lname: lnameInput,
+          email: emailInput,
+          username: usernameInput,
+          password: passwordInput,
+        }),
+      });
   };
 
   return (
@@ -103,6 +129,12 @@ const Signup = () => {
         </div>
         <input type="submit" value="Register"></input>
       </form>
+      {emailTaken && (
+        <div>This email is already in use - please use a different one.</div>
+      )}
+      {usernameTaken && (
+        <div>This username is already in use - please try something else.</div>
+      )}
     </div>
   );
 };
