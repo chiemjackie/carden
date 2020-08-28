@@ -17,13 +17,13 @@ const Login = () => {
   const login = (event) => {
     event.preventDefault();
 
-    let loginUsernameInput = document.getElementById("loginUsername").value;
+    let loginEmailInput = document.getElementById("loginEmail").value;
     let loginPasswordInput = document.getElementById("loginPassword").value;
 
     const verifyUser = (allUsers) => {
       for (let i = 0; i < allUsers.length; i++) {
         if (
-          loginUsernameInput === allUsers[i].username &&
+          loginEmailInput === allUsers[i].email &&
           loginPasswordInput === allUsers[i].password
         ) {
           console.log("match found");
@@ -41,11 +41,11 @@ const Login = () => {
       <h2>Login</h2>
       <form onSubmit={login}>
         <div>
-          <label htmlFor="loginUsername">Username:</label>
+          <label htmlFor="loginEmail">Email:</label>
           <input
-            id="loginUsername"
-            name="loginUsername"
-            type="text"
+            id="loginEmail"
+            name="loginEmail"
+            type="email"
             placeholder=""
             required
           ></input>

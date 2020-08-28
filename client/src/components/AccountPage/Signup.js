@@ -6,6 +6,7 @@ const Signup = () => {
   const [passwordType, setPasswordType] = useState("password");
   const [emailTaken, setEmailTaken] = useState(false);
   const [usernameTaken, setUsernameTaken] = useState(false);
+  const [readyForLogin, setReadyForLogin] = useState(false);
 
   const toggleShowPassword = (event) => {
     event.preventDefault();
@@ -31,7 +32,7 @@ const Signup = () => {
       for (let i = 0; i < allUsers.length; i++) {
         if (emailInput === allUsers[i].email) {
           emailTakenFlag = true;
-        } else if (usernameInput === allUsers[i].username) {
+        } else if (allUsers && usernameInput === allUsers[i].username) {
           usernameTakenFlag = true;
         }
       }
@@ -42,6 +43,7 @@ const Signup = () => {
         setUsernameTaken(true);
       } else if (!emailTakenFlag && !usernameTakenFlag) {
         createUser();
+        setReadyForLogin(true);
       }
     };
 
@@ -134,6 +136,11 @@ const Signup = () => {
       )}
       {usernameTaken && (
         <div>This username is already in use - please try something else.</div>
+      )}
+      {readyForLogin && (
+        <div>
+          Registration successful! Please login below with your new credentials.
+        </div>
       )}
     </div>
   );
