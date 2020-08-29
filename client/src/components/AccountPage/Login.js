@@ -37,7 +37,7 @@ const Login = () => {
           loginPasswordInput === user.password
         ) {
           setCurrentUser(user);
-          history.push("/");
+          history.push("/play");
         }
       });
       if (currentUser === null) {

@@ -26,11 +26,14 @@ const Navbar = () => {
           <NavItem>
             {currentUser.roses}
             {currentUser.daisies}
+            {currentUser.username}
           </NavItem>
         )}
-        <NavItem>
-          <StyledLink to="/account">ACCOUNT</StyledLink>
-        </NavItem>
+        {!currentUser && (
+          <NavItem>
+            <StyledLink to="/account">ACCOUNT</StyledLink>
+          </NavItem>
+        )}
         <NavItem>
           <StyledLink to="/profile">PLAYERS</StyledLink>
         </NavItem>
