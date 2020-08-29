@@ -5,8 +5,6 @@ import styled from "styled-components";
 import logo_and_carden from "../assets/logo_and_carden.png";
 import { COLORS } from "../constants";
 import { CurrentUserContext } from "./CurrentUserContext";
-import { GiSunflower } from "react-icons/gi";
-import { IoIosRose } from "react-icons/io";
 
 const Navbar = () => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -29,8 +27,10 @@ const Navbar = () => {
             <StyledRose />
             <NumRoses>{currentUser.roses}</NumRoses>
             <StyledSunflower />
-            <NumSunflowers>{currentUser.daisies}</NumSunflowers>
-            <Username>{currentUser.username}</Username>
+            <NumSunflowers>{currentUser.sunflowers}</NumSunflowers>
+            <StyledProfileLink to={`/profile/${currentUser.username}`}>
+              {currentUser.username}
+            </StyledProfileLink>
           </NavItem>
         )}
         {!currentUser && (
@@ -74,7 +74,12 @@ const NavRightSection = styled.div`
 
 const StyledLogo = styled.img`
   margin-top: 5px;
-  height: 60px;
+  min-height: 40px;
+  min-width: 130px;
+  max-height: 50px;
+  max-width: 162.5px;
+  height: 6vw;
+  width: 19.5vw;
 `;
 
 const StyledLink = styled(NavLink)`
@@ -102,9 +107,10 @@ const NumSunflowers = styled.div`
   margin-right: 2vw;
   color: darkorange;
 `;
-const Username = styled.div`
+const StyledProfileLink = styled(NavLink)`
   color: ${COLORS.primary};
-  min-width: 8vw;
+  width: 10vw;
+  min-width: 110px;
 `;
 
 export default Navbar;

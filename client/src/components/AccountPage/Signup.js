@@ -68,7 +68,7 @@ const Signup = () => {
           email: emailInput,
           username: usernameInput,
           password: passwordInput,
-          daisies: 1000,
+          sunflowers: 1000,
           roses: 0,
         }),
       });

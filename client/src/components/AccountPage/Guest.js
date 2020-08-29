@@ -15,7 +15,7 @@ const Guest = () => {
 
     setCurrentUser({
       username: `guest-${guestNumber}`,
-      daisies: 100,
+      sunflowers: 100,
       roses: 0,
     });
     history.push("/play");

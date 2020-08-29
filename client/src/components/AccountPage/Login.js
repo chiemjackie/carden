@@ -9,9 +9,7 @@ import { useHistory } from "react-router-dom";
 const Login = () => {
   const [passwordType, setPasswordType] = useState("password");
   const [loginFailed, setLoginFailed] = useState(null);
-
   const history = useHistory();
-
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const toggleShowPassword = (event) => {
