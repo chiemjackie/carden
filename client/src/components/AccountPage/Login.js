@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import styled from "styled-components";
 
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
+import { HiX } from "react-icons/hi";
+import { CurrentUserContext } from "../CurrentUserContext";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const [passwordType, setPasswordType] = useState("password");
+  const [loginFailed, setLoginFailed] = useState(null);
+
+  const history = useHistory();
+
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const toggleShowPassword = (event) => {
     event.preventDefault();
@@ -21,13 +30,18 @@ const Login = () => {
     let loginPasswordInput = document.getElementById("loginPassword").value;
 
     const verifyUser = (allUsers) => {
-      for (let i = 0; i < allUsers.length; i++) {
+      console.log(allUsers);
+      allUsers.forEach((user) => {
         if (
-          loginEmailInput === allUsers[i].email &&
-          loginPasswordInput === allUsers[i].password
+          loginEmailInput === user.email &&
+          loginPasswordInput === user.password
         ) {
-          console.log("match found");
+          setCurrentUser(user);
+          history.push("/");
         }
+      });
+      if (currentUser === null) {
+        setLoginFailed(true);
       }
     };
 
@@ -72,8 +86,18 @@ const Login = () => {
         </div>
         <input type="submit" value="Login"></input>
       </form>
+      {loginFailed && (
+        <RejectedLogin>
+          <HiX />
+          <p>Incorrect email or password - please try again.</p>
+        </RejectedLogin>
+      )}
     </div>
   );
 };
+
+const RejectedLogin = styled.div`
+  display: flex;
+`;
 
 export default Login;

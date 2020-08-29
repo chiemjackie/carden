@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 import logo_and_carden from "../assets/logo_and_carden.png";
 import { COLORS } from "../constants";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 const Navbar = () => {
+  const { currentUser } = useContext(CurrentUserContext);
+
   return (
     <NavbarWrapper>
       <NavLeftSection>
@@ -19,6 +22,12 @@ const Navbar = () => {
         </NavItem>
       </NavLeftSection>
       <NavRightSection>
+        {currentUser && (
+          <NavItem>
+            {currentUser.roses}
+            {currentUser.daisies}
+          </NavItem>
+        )}
         <NavItem>
           <StyledLink to="/account">ACCOUNT</StyledLink>
         </NavItem>

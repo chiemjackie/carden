@@ -30,7 +30,7 @@ const FooterWrapper = styled.footer`
 
 const Line = styled.hr`
   width: 90vw;
-  margin: 5vw;
+  margin: 3vw;
   border: 1px solid lightgrey;
 `;
 

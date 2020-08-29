@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
+import { HiX, HiCheck } from "react-icons/hi";
 
 const Signup = () => {
   const [passwordType, setPasswordType] = useState("password");
@@ -40,8 +42,11 @@ const Signup = () => {
       if (emailTakenFlag) {
         setEmailTaken(true);
       } else if (usernameTakenFlag) {
+        setEmailTaken(false);
         setUsernameTaken(true);
       } else if (!emailTakenFlag && !usernameTakenFlag) {
+        setEmailTaken(false);
+        setUsernameTaken(false);
         createUser();
         setReadyForLogin(true);
       }
@@ -63,6 +68,8 @@ const Signup = () => {
           email: emailInput,
           username: usernameInput,
           password: passwordInput,
+          daisies: 1000,
+          roses: 0,
         }),
       });
   };
@@ -132,18 +139,32 @@ const Signup = () => {
         <input type="submit" value="Register"></input>
       </form>
       {emailTaken && (
-        <div>This email is already in use - please use a different one.</div>
+        <RejectedRegistration>
+          <HiX />
+          <p>This email is already in use - please use a different one.</p>
+        </RejectedRegistration>
       )}
       {usernameTaken && (
-        <div>This username is already in use - please try something else.</div>
+        <RejectedRegistration>
+          <HiX />
+          <p>This username is already in use - please try something else.</p>
+        </RejectedRegistration>
       )}
       {readyForLogin && (
-        <div>
-          Registration successful! Please login below with your new credentials.
-        </div>
+        <RejectedRegistration>
+          <HiCheck />
+          <p>
+            Registration successful! Please login below with your new
+            credentials.
+          </p>
+        </RejectedRegistration>
       )}
     </div>
   );
 };
+
+const RejectedRegistration = styled.div`
+  display: flex;
+`;
 
 export default Signup;

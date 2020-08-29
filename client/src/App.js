@@ -7,7 +7,7 @@ import Homepage from "./components/Homepage";
 import War from "./components/War/War";
 import GoFish from "./components/GoFish/GoFish";
 import GameSelector from "./components/GameSelector";
-import Account from "./components/AccountPage/Account";
+import Account from "./components/AccountPage/AccountPage";
 import ProfileSearch from "./components/ProfileSearch";
 import Profile from "./components/Profile";
 import Footer from "./components/Footer";

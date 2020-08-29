@@ -10,34 +10,18 @@ const options = {
 };
 
 const addUser = async (req, res) => {
-  try {
-    const client = await MongoClient(MONGO_URI, options);
-    const input = req.body;
+  const client = await MongoClient(MONGO_URI, options);
+  const input = req.body;
 
-    await client.connect();
+  await client.connect();
 
-    const db = client.db("carden");
-    console.log("connected!");
+  const db = client.db("carden");
+  console.log("connected!");
 
-    await db.collection("users").insertOne(input);
+  await db.collection("users").insertOne(input);
 
-    client.close();
-    console.log("disconnected!");
-
-    res.status(201).json({
-      status: 201,
-      data: {
-        _id: input._id,
-        fname: input.fname,
-        lname: input.lname,
-        email: input.email,
-        username: input.username,
-        password: input.password,
-      },
-    });
-  } catch ({ message }) {
-    res.status(401).json({ status: 401, message: message });
-  }
+  client.close();
+  console.log("disconnected!");
 };
 
 const getUsers = async (req, res) => {
