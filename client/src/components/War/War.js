@@ -8,47 +8,32 @@ import { COLORS } from "../../constants";
 // import { CardSingle } from "../CardGraphics/Cards";
 
 const War = () => {
-  const [status, setStatus] = useState("selecting");
-  const [selection, setSelection] = useState("null");
+  const [selection, setSelection] = useState(null);
 
   function selectHouse() {
-    // console.log("house");
-    setStatus("selected");
     setSelection("house");
   }
 
-  function selectRandom() {
-    // console.log("random");
-    setStatus("selected");
-    setSelection("random");
-  }
-
   function selectFriend() {
-    // console.log("friend");
-    setStatus("selected");
     setSelection("friend");
   }
 
-  // console.log(status);
-  // console.log(selection);
-
-  if (status === "selecting") {
+  if (selection === null) {
     return <AgainstHouse />;
-  } else if (status === "selected" && selection === "house") {
+  } else if (selection === "house") {
     return (
       <SelectionWrapper>
         <PlayAgainstText>Play against...</PlayAgainstText>
         <InitButton onClick={selectHouse}>
           <AgainstButtonText>The House</AgainstButtonText>
         </InitButton>
-        <InitButton onClick={selectRandom}>
-          <AgainstButtonText> A Random Player</AgainstButtonText>
-        </InitButton>
         <InitButton onClick={selectFriend}>
           <AgainstButtonText>Against a Friend</AgainstButtonText>
         </InitButton>
       </SelectionWrapper>
     );
+  } else if (selection === "friend") {
+    return <div>Against friend</div>;
   }
 };
 

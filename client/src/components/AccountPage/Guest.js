@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 
 import { CurrentUserContext } from "../CurrentUserContext";
 import { useHistory } from "react-router-dom";
 
 const Guest = () => {
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { setCurrentUser } = useContext(CurrentUserContext);
 
   const history = useHistory();
 

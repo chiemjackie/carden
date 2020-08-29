@@ -1,61 +1,323 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import CardFront from "../CardGraphics/CardFront";
+import CardBack from "../CardGraphics/CardBack";
 import { COLORS } from "../../constants";
 
 const startingDeck = [
-  1,
-  1,
-  1,
-  1,
-  2,
-  2,
-  2,
-  2,
-  3,
-  3,
-  3,
-  3,
-  4,
-  4,
-  4,
-  4,
-  5,
-  5,
-  5,
-  5,
-  6,
-  6,
-  6,
-  6,
-  7,
-  7,
-  7,
-  7,
-  8,
-  8,
-  8,
-  8,
-  9,
-  9,
-  9,
-  9,
-  10,
-  10,
-  10,
-  10,
-  11,
-  11,
-  11,
-  11,
-  12,
-  12,
-  12,
-  12,
-  13,
-  13,
-  13,
-  13,
+  {
+    value: 2,
+    rank: "2",
+    suit: "spade",
+    color: "black",
+  },
+  {
+    value: 2,
+    rank: "2",
+    suit: "club",
+    color: "black",
+  },
+  {
+    value: 2,
+    rank: "2",
+    suit: "diamond",
+    color: "red",
+  },
+  {
+    value: 2,
+    rank: "2",
+    suit: "heart",
+    color: "red",
+  },
+  {
+    value: 3,
+    rank: "3",
+    suit: "spade",
+    color: "black",
+  },
+  {
+    value: 3,
+    rank: "3",
+    suit: "club",
+    color: "black",
+  },
+  {
+    value: 3,
+    rank: "3",
+    suit: "diamond",
+    color: "red",
+  },
+  {
+    value: 3,
+    rank: "3",
+    suit: "heart",
+    color: "red",
+  },
+  {
+    value: 4,
+    rank: "4",
+    suit: "spade",
+    color: "black",
+  },
+  {
+    value: 4,
+    rank: "4",
+    suit: "club",
+    color: "black",
+  },
+  {
+    value: 4,
+    rank: "4",
+    suit: "diamond",
+    color: "red",
+  },
+  {
+    value: 4,
+    rank: "4",
+    suit: "heart",
+    color: "red",
+  },
+  {
+    value: 5,
+    rank: "5",
+    suit: "spade",
+    color: "black",
+  },
+  {
+    value: 5,
+    rank: "5",
+    suit: "club",
+    color: "black",
+  },
+  {
+    value: 5,
+    rank: "5",
+    suit: "diamond",
+    color: "red",
+  },
+  {
+    value: 5,
+    rank: "5",
+    suit: "heart",
+    color: "red",
+  },
+  {
+    value: 6,
+    rank: "6",
+    suit: "spade",
+    color: "black",
+  },
+  {
+    value: 6,
+    rank: "6",
+    suit: "club",
+    color: "black",
+  },
+  {
+    value: 6,
+    rank: "6",
+    suit: "diamond",
+    color: "red",
+  },
+  {
+    value: 6,
+    rank: "6",
+    suit: "heart",
+    color: "red",
+  },
+  {
+    value: 7,
+    rank: "7",
+    suit: "spade",
+    color: "black",
+  },
+  {
+    value: 7,
+    rank: "7",
+    suit: "club",
+    color: "black",
+  },
+  {
+    value: 7,
+    rank: "7",
+    suit: "diamond",
+    color: "red",
+  },
+  {
+    value: 7,
+    rank: "7",
+    suit: "heart",
+    color: "red",
+  },
+  {
+    value: 8,
+    rank: "8",
+    suit: "spade",
+    color: "black",
+  },
+  {
+    value: 8,
+    rank: "8",
+    suit: "club",
+    color: "black",
+  },
+  {
+    value: 8,
+    rank: "8",
+    suit: "diamond",
+    color: "red",
+  },
+  {
+    value: 8,
+    rank: "8",
+    suit: "heart",
+    color: "red",
+  },
+  {
+    value: 9,
+    rank: "9",
+    suit: "spade",
+    color: "black",
+  },
+  {
+    value: 9,
+    rank: "9",
+    suit: "club",
+    color: "black",
+  },
+  {
+    value: 9,
+    rank: "9",
+    suit: "diamond",
+    color: "red",
+  },
+  {
+    value: 9,
+    rank: "9",
+    suit: "heart",
+    color: "red",
+  },
+  {
+    value: 10,
+    rank: "10",
+    suit: "spade",
+    color: "black",
+  },
+  {
+    value: 10,
+    rank: "10",
+    suit: "club",
+    color: "black",
+  },
+  {
+    value: 10,
+    rank: "10",
+    suit: "diamond",
+    color: "red",
+  },
+  {
+    value: 10,
+    rank: "10",
+    suit: "heart",
+    color: "red",
+  },
+  {
+    value: 11,
+    rank: "J",
+    suit: "spade",
+    color: "black",
+  },
+  {
+    value: 11,
+    rank: "J",
+    suit: "club",
+    color: "black",
+  },
+  {
+    value: 11,
+    rank: "J",
+    suit: "diamond",
+    color: "red",
+  },
+  {
+    value: 11,
+    rank: "J",
+    suit: "heart",
+    color: "red",
+  },
+  {
+    value: 12,
+    rank: "Q",
+    suit: "spade",
+    color: "black",
+  },
+  {
+    value: 12,
+    rank: "Q",
+    suit: "club",
+    color: "black",
+  },
+  {
+    value: 12,
+    rank: "Q",
+    suit: "diamond",
+    color: "red",
+  },
+  {
+    value: 12,
+    rank: "Q",
+    suit: "heart",
+    color: "red",
+  },
+  {
+    value: 13,
+    rank: "K",
+    suit: "spade",
+    color: "black",
+  },
+  {
+    value: 13,
+    rank: "K",
+    suit: "club",
+    color: "black",
+  },
+  {
+    value: 13,
+    rank: "K",
+    suit: "diamond",
+    color: "red",
+  },
+  {
+    value: 13,
+    rank: "K",
+    suit: "heart",
+    color: "red",
+  },
+  {
+    value: 14,
+    rank: "A",
+    suit: "spade",
+    color: "black",
+  },
+  {
+    value: 14,
+    rank: "A",
+    suit: "club",
+    color: "black",
+  },
+  {
+    value: 14,
+    rank: "A",
+    suit: "diamond",
+    color: "red",
+  },
+  {
+    value: 14,
+    rank: "A",
+    suit: "heart",
+    color: "red",
+  },
 ];
 let oppDeck = [];
 let selfDeck = [];
@@ -97,23 +359,23 @@ const AgainstHouse = () => {
   let selfRemainingCards = selfDeck.length - battleCards;
   let average = (selfDeck.length + oppDeck.length + 2 * battleCards) / 2;
 
-  const toggleAutoPlay = () => {
+  function toggleAutoPlay() {
     enableAutoPlay = !enableAutoPlay;
     if (enableAutoPlay) {
       interval = setInterval(incrementTurn, 10);
     } else clearInterval(interval);
-  };
+  }
 
-  const incrementTurn = () => {
+  function incrementTurn() {
     turn++;
     oppCurrentCard = oppDeck.shift();
     selfCurrentCard = selfDeck.shift();
     updateDecksAndStatus();
     checkIfGameOver();
-  };
+  }
 
-  const updateDecksAndStatus = () => {
-    if (oppCurrentCard > selfCurrentCard) {
+  function updateDecksAndStatus() {
+    if (oppCurrentCard.value > selfCurrentCard.value) {
       oppDeck.push(oppCurrentCard, selfCurrentCard);
       while (battleCards > 0) {
         oppDeck.push(selfDeck.shift());
@@ -128,9 +390,9 @@ const AgainstHouse = () => {
       selfCardsInBattle = [];
       setGameStatus("Battle LOST!");
       setGameText(
-        `Cards ${oppCurrentCard} and ${selfCurrentCard}, and any cards at war are placed in the opponents' deck.`
+        `Cards ${oppCurrentCard.rank} and ${selfCurrentCard.rank}, and any cards at war are placed in the opponents' deck.`
       );
-    } else if (oppCurrentCard < selfCurrentCard) {
+    } else if (oppCurrentCard.value < selfCurrentCard.value) {
       selfDeck.push(selfCurrentCard, oppCurrentCard);
       while (battleCards > 0) {
         selfDeck.push(oppDeck.shift());
@@ -145,22 +407,21 @@ const AgainstHouse = () => {
       selfCardsInBattle = [];
       setGameStatus("Battle WON!");
       setGameText(
-        `Cards ${oppCurrentCard} and ${selfCurrentCard}, and any cards at war are placed in your deck.`
+        `Cards ${oppCurrentCard.rank} and ${selfCurrentCard.rank}, and any cards at war are placed in your deck.`
       );
     } else if (
       oppDeck.length > 0 &&
       selfDeck.length > 0 &&
-      oppCurrentCard === selfCurrentCard
+      oppCurrentCard.value === selfCurrentCard.value
     ) {
       oppCardsInBattle.push(oppCurrentCard);
       selfCardsInBattle.push(selfCurrentCard);
       battleCards++;
-      console.log("war");
       setGameStatus("War!");
       setGameText("Pull another card to settle this battle, winner takes all.");
     } else if (
       (oppDeck.length === 0 || selfDeck.length === 0) &&
-      oppCurrentCard === selfCurrentCard
+      oppCurrentCard.value === selfCurrentCard.value
     ) {
       oppRemainingCards = oppRemainingCards + battleCards;
       selfRemainingCards = selfRemainingCards + battleCards;
@@ -168,31 +429,31 @@ const AgainstHouse = () => {
       oppCardsInBattle = [];
       selfCardsInBattle = [];
     }
-  };
+  }
 
-  const checkIfGameOver = () => {
+  function checkIfGameOver() {
     if (
-      (oppCurrentCard > selfCurrentCard ||
-        oppCurrentCard === selfCurrentCard) &&
+      (oppCurrentCard.value > selfCurrentCard.value ||
+        oppCurrentCard.value === selfCurrentCard.value) &&
       selfDeck.length <= 0
     ) {
+      disableButton();
+      clearInterval(interval);
       setGameStatus("You've LOST the war!");
       setGameText("Welp, now we're extinct.");
-      disableButton();
-      clearInterval(interval);
     } else if (
-      (oppCurrentCard < selfCurrentCard ||
-        oppCurrentCard === selfCurrentCard) &&
+      (oppCurrentCard.value < selfCurrentCard.value ||
+        oppCurrentCard.value === selfCurrentCard.value) &&
       oppDeck.length <= 0
     ) {
-      setGameStatus("You've WON the war!");
-      setGameText("Nice.");
       disableButton();
       clearInterval(interval);
+      setGameStatus("You've WON the war!");
+      setGameText("Nice.");
     }
-  };
+  }
 
-  const reset = () => {
+  function reset() {
     turn = 0;
     setGameStatus("Start");
     setGameText("No prisoners.");
@@ -207,20 +468,20 @@ const AgainstHouse = () => {
     enableAutoPlay = false;
     clearInterval(interval);
     initShuffle();
-  };
+  }
 
-  const disableButton = () => {
+  function disableButton() {
     disableButtonStatus = true;
-  };
+  }
 
-  console.log("OPP", oppDeck);
-  console.log("SELF", selfDeck);
+  // console.log("OPP", oppDeck);
+  // console.log("SELF", selfDeck);
 
   return (
     <GameWrapper>
       <OppSide>
         <CardPlaceholder>Cards remaining: {oppRemainingCards}</CardPlaceholder>
-        <CardPlaceholder>{oppCurrentCard}</CardPlaceholder>
+        <CardPlaceholder>{oppCurrentCard.rank}</CardPlaceholder>
         <CardPlaceholder>
           <div>
             <div>
@@ -229,7 +490,9 @@ const AgainstHouse = () => {
             <div>
               Card(s) at war:
               {oppCardsInBattle.length > 0 ? (
-                oppCardsInBattle.map((card) => <div key={card}> {card} </div>)
+                oppCardsInBattle.map((card) => (
+                  <div key={card.rank}> {card.rank} </div>
+                ))
               ) : (
                 <div>None</div>
               )}
@@ -262,23 +525,12 @@ const AgainstHouse = () => {
         </GameFunctionsRight>
       </GameFunctions>
       <SelfSide>
-        <CardPlaceholder>Cards remaining: {selfRemainingCards}</CardPlaceholder>
-        <CardPlaceholder>{selfCurrentCard}</CardPlaceholder>
-        <CardPlaceholder>
-          <div>
-            <div>
-              Upside-down cards: <div>{battleCards}</div>
-            </div>
-            <div>
-              Card(s) at war:
-              {selfCardsInBattle.length > 0 ? (
-                selfCardsInBattle.map((card) => <div key={card}> {card} </div>)
-              ) : (
-                <div>None</div>
-              )}
-            </div>
-          </div>
-        </CardPlaceholder>
+        <CardBack selfRemainingCards={selfRemainingCards} />
+        <CardFront card={selfCurrentCard} />
+        <CardBack
+          battleCards={battleCards}
+          selfCardsInBattle={selfCardsInBattle}
+        />
       </SelfSide>
     </GameWrapper>
   );

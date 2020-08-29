@@ -5,11 +5,9 @@ import styled from "styled-components";
 const GameSelector = () => {
   return (
     <SelectorPageWrapper>
-      <WarSelectorWrapper>
-        <Selector to="/play/war">War Select</Selector>
-      </WarSelectorWrapper>
-      <GoFishSelectorWrapper>
-        <Selector to="/play/gofish">Go Fish Select</Selector>
+      <WarSelectorWrapper to="/play/war">War Select</WarSelectorWrapper>
+      <GoFishSelectorWrapper to="/play/gofish">
+        Go Fish Select
       </GoFishSelectorWrapper>
     </SelectorPageWrapper>
   );
@@ -21,18 +19,16 @@ const SelectorPageWrapper = styled.div`
   justify-content: space-evenly;
 `;
 
-const Selector = styled(NavLink)`
+const WarSelectorWrapper = styled(NavLink)`
+  background: green;
+  padding: 30px;
   color: white;
 `;
 
-const WarSelectorWrapper = styled.div`
-  background: green;
-  padding: 30px;
-`;
-
-const GoFishSelectorWrapper = styled.div`
+const GoFishSelectorWrapper = styled(NavLink)`
   background: blue;
   padding: 30px;
+  color: white;
 `;
 
 export default GameSelector;
