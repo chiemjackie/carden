@@ -11,10 +11,10 @@ const Guest = () => {
 
   const guestRegister = (event) => {
     event.preventDefault();
-    let guestNumber = Math.floor(Math.random() * 1000000000);
+    let guestNumber = Math.random().toString(36).substring(2, 9);
 
     setCurrentUser({
-      username: `guest${guestNumber}`,
+      username: `guest-${guestNumber}`,
       daisies: 100,
       roses: 0,
     });

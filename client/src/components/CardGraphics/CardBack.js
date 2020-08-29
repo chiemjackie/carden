@@ -3,32 +3,27 @@ import styled from "styled-components";
 import { COLORS } from "../../constants";
 
 const CardBack = ({ remainingCards, battleCards, cardsInBattle }) => {
-  // console.log(remainingCards);
-  // console.log(battleCards);
-  // console.log(cardsInBattle);
   return (
     <CardWrapper>
       <CardBackWrapper>
-        {battleCards && cardsInBattle && (
+        {battleCards >= 0 ? (
           <WarCardsWrapper>
-            <div>
+            <UpsideDownCardsText>
               Upside-down cards:{" "}
               <UpsideDownNumber>{battleCards}</UpsideDownNumber>
-            </div>
-            <div>
+            </UpsideDownCardsText>
+            <CardsAtWarText>
               Card(s) at war:
               {cardsInBattle.length > 0 ? (
                 cardsInBattle.map((card) => (
-                  <CardsInBattle key={card.rank}>{card.rank}</CardsInBattle>
+                  <CardsAtWar key={card.rank}>{card.rank}</CardsAtWar>
                 ))
               ) : (
-                <CardsInBattle>None</CardsInBattle>
+                <CardsAtWar>None</CardsAtWar>
               )}
-            </div>
+            </CardsAtWarText>
           </WarCardsWrapper>
-        )}
-
-        {remainingCards && (
+        ) : (
           <RemainingCardsWrapper>
             <RemainingCardsText>Remaining cards:</RemainingCardsText>
             <RemainingCardsNumber>{remainingCards}</RemainingCardsNumber>
@@ -64,10 +59,15 @@ const RemainingCardsNumber = styled.p`
 `;
 
 const UpsideDownNumber = styled.p`
-  font-size: 3rem;
+  font-size: 2rem;
 `;
-const CardsInBattle = styled.p`
-  font-size: 3rem;
+const CardsAtWar = styled.p`
+  font-size: 2rem;
+`;
+
+const UpsideDownCardsText = styled.div``;
+const CardsAtWarText = styled.div`
+  margin-top: 20%;
 `;
 
 const WarCardsWrapper = styled.div``;

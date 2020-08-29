@@ -5,6 +5,8 @@ import styled from "styled-components";
 import logo_and_carden from "../assets/logo_and_carden.png";
 import { COLORS } from "../constants";
 import { CurrentUserContext } from "./CurrentUserContext";
+import { GiSunflower } from "react-icons/gi";
+import { IoIosRose } from "react-icons/io";
 
 const Navbar = () => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -24,9 +26,11 @@ const Navbar = () => {
       <NavRightSection>
         {currentUser && (
           <NavItem>
-            {currentUser.roses}
-            {currentUser.daisies}
-            {currentUser.username}
+            <StyledRose />
+            <NumRoses>{currentUser.roses}</NumRoses>
+            <StyledSunflower />
+            <NumSunflowers>{currentUser.daisies}</NumSunflowers>
+            <Username>{currentUser.username}</Username>
           </NavItem>
         )}
         {!currentUser && (
@@ -48,9 +52,14 @@ const NavbarWrapper = styled.nav`
   align-items: center;
   text-align: center;
   margin: 5px 15px 30px;
+  font-weight: bold;
 `;
 
-const NavItem = styled.li``;
+const NavItem = styled.li`
+  display: flex;
+  align-items: center;
+  text-align: center;
+`;
 
 const NavLeftSection = styled.div`
   display: flex;
@@ -69,9 +78,33 @@ const StyledLogo = styled.img`
 `;
 
 const StyledLink = styled(NavLink)`
-  margin-left: 50px;
-  font-weight: bold;
+  margin-left: 2vw;
   color: ${COLORS.secondary};
+`;
+
+const StyledRose = styled(IoIosRose)`
+  color: ${COLORS.red};
+  margin-right: 2%;
+  font-size: 2rem;
+`;
+
+const StyledSunflower = styled(GiSunflower)`
+  color: darkorange;
+  margin-right: 2%;
+  font-size: 2rem;
+`;
+
+const NumRoses = styled.div`
+  color: ${COLORS.red};
+  margin-right: 2vw;
+`;
+const NumSunflowers = styled.div`
+  margin-right: 2vw;
+  color: darkorange;
+`;
+const Username = styled.div`
+  color: ${COLORS.primary};
+  min-width: 8vw;
 `;
 
 export default Navbar;
