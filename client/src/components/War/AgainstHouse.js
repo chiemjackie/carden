@@ -357,7 +357,7 @@ const AgainstHouse = () => {
 
   let oppRemainingCards = oppDeck.length - battleCards;
   let selfRemainingCards = selfDeck.length - battleCards;
-  let average = (selfDeck.length + oppDeck.length + 2 * battleCards) / 2;
+  // let average = (selfDeck.length + oppDeck.length + 2 * battleCards) / 2;
 
   function toggleAutoPlay() {
     enableAutoPlay = !enableAutoPlay;
@@ -480,30 +480,15 @@ const AgainstHouse = () => {
   return (
     <GameWrapper>
       <OppSide>
-        <CardPlaceholder>Cards remaining: {oppRemainingCards}</CardPlaceholder>
-        <CardPlaceholder>{oppCurrentCard.rank}</CardPlaceholder>
-        <CardPlaceholder>
-          <div>
-            <div>
-              Upside-down cards: <div>{battleCards}</div>
-            </div>
-            <div>
-              Card(s) at war:
-              {oppCardsInBattle.length > 0 ? (
-                oppCardsInBattle.map((card) => (
-                  <div key={card.rank}> {card.rank} </div>
-                ))
-              ) : (
-                <div>None</div>
-              )}
-            </div>
-          </div>
-        </CardPlaceholder>
+        <CardBack remainingCards={oppRemainingCards} />
+        <CardFront card={oppCurrentCard} />
+        <CardBack battleCards={battleCards} cardsInBattle={oppCardsInBattle} />
       </OppSide>
       <GameFunctions>
         <GameFunctionsLeft>
           <Rounds>
-            Round: {turn} Avg: {average}
+            Round: {turn}
+            {/* Avg: {average} */}
           </Rounds>
         </GameFunctionsLeft>
         <GameFunctionsCentre>
@@ -525,12 +510,9 @@ const AgainstHouse = () => {
         </GameFunctionsRight>
       </GameFunctions>
       <SelfSide>
-        <CardBack selfRemainingCards={selfRemainingCards} />
+        <CardBack remainingCards={selfRemainingCards} />
         <CardFront card={selfCurrentCard} />
-        <CardBack
-          battleCards={battleCards}
-          selfCardsInBattle={selfCardsInBattle}
-        />
+        <CardBack battleCards={battleCards} cardsInBattle={selfCardsInBattle} />
       </SelfSide>
     </GameWrapper>
   );
@@ -610,18 +592,6 @@ const LineBreak = styled.div`
 
 const Rounds = styled.div`
   margin: 0 0 0 3vw;
-`;
-
-const CardPlaceholder = styled.div`
-  display: flex;
-  border: 1px solid black;
-  height: 75%;
-  width: 25%;
-  margin: 0 15px;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  font-size: 24px;
 `;
 
 export default AgainstHouse;

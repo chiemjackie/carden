@@ -2,28 +2,38 @@ import React from "react";
 import styled from "styled-components";
 import { COLORS } from "../../constants";
 
-const CardBack = ({ selfRemainingCards, battleCards, selfCardsInBattle }) => {
+const CardBack = ({ remainingCards, battleCards, cardsInBattle }) => {
+  // console.log(remainingCards);
+  // console.log(battleCards);
+  // console.log(cardsInBattle);
   return (
     <CardWrapper>
       <CardBackWrapper>
-        {battleCards && selfCardsInBattle && (
-          <>
+        {battleCards && cardsInBattle && (
+          <WarCardsWrapper>
             <div>
-              Upside-down cards: <div>{battleCards}</div>
+              Upside-down cards:{" "}
+              <UpsideDownNumber>{battleCards}</UpsideDownNumber>
             </div>
             <div>
               Card(s) at war:
-              {selfCardsInBattle.length > 0 ? (
-                selfCardsInBattle.map((card) => (
-                  <div key={card.rank}> {card.rank} </div>
+              {cardsInBattle.length > 0 ? (
+                cardsInBattle.map((card) => (
+                  <CardsInBattle key={card.rank}>{card.rank}</CardsInBattle>
                 ))
               ) : (
-                <div>None</div>
+                <CardsInBattle>None</CardsInBattle>
               )}
             </div>
-          </>
+          </WarCardsWrapper>
         )}
-        {selfRemainingCards && <div>REMAINING:</div>}
+
+        {remainingCards && (
+          <RemainingCardsWrapper>
+            <RemainingCardsText>Remaining cards:</RemainingCardsText>
+            <RemainingCardsNumber>{remainingCards}</RemainingCardsNumber>
+          </RemainingCardsWrapper>
+        )}
       </CardBackWrapper>
     </CardWrapper>
   );
@@ -45,5 +55,21 @@ const CardBackWrapper = styled.div`
   align-items: center;
   color: white;
 `;
+
+const RemainingCardsWrapper = styled.div``;
+
+const RemainingCardsText = styled.p``;
+const RemainingCardsNumber = styled.p`
+  font-size: 3rem;
+`;
+
+const UpsideDownNumber = styled.p`
+  font-size: 3rem;
+`;
+const CardsInBattle = styled.p`
+  font-size: 3rem;
+`;
+
+const WarCardsWrapper = styled.div``;
 
 export default CardBack;
