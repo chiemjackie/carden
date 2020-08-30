@@ -28,7 +28,6 @@ const Login = () => {
     let loginPasswordInput = document.getElementById("loginPassword").value;
 
     const verifyUser = (allUsers) => {
-      console.log(allUsers);
       allUsers.forEach((user) => {
         if (
           loginEmailInput === user.email &&
