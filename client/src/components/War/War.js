@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import Card from "react-playing-card";
 import AgainstHouse from "./AgainstHouse";
 
 import { COLORS } from "../../constants";
-
-// import { CardSingle } from "../CardGraphics/Cards";
 
 const War = () => {
   const [selection, setSelection] = useState(null);
@@ -19,8 +16,6 @@ const War = () => {
   }
 
   if (selection === null) {
-    return <AgainstHouse />;
-  } else if (selection === "house") {
     return (
       <SelectionWrapper>
         <PlayAgainstText>Play against...</PlayAgainstText>
@@ -32,13 +27,12 @@ const War = () => {
         </InitButton>
       </SelectionWrapper>
     );
+  } else if (selection === "house") {
+    return <AgainstHouse />;
   } else if (selection === "friend") {
     return <div>Against friend</div>;
   }
 };
-
-// <StyledCard rank="J" suit="C" />;
-// const StyledCard = styled(Card)``;
 
 const SelectionWrapper = styled.div`
   display: flex;
