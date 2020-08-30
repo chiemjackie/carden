@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import AgainstHouse from "./AgainstHouse";
+import AgainstFriend from "./AgainstFriend";
 
 import { COLORS } from "../../constants";
 
@@ -30,7 +31,7 @@ const War = () => {
   } else if (selection === "house") {
     return <AgainstHouse />;
   } else if (selection === "friend") {
-    return <div>Against friend</div>;
+    return <AgainstFriend />;
   }
 };
 
