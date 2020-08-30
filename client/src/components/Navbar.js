@@ -96,7 +96,7 @@ const StyledRose = styled(IoIosRose)`
 `;
 
 const StyledSunflower = styled(GiSunflower)`
-  color: darkorange;
+  color: ${COLORS.orange};
   margin-right: 2%;
   font-size: 2.2rem;
 `;
@@ -107,7 +107,7 @@ const NumRoses = styled.div`
 `;
 const NumSunflowers = styled.div`
   margin-right: 2vw;
-  color: darkorange;
+  color: ${COLORS.orange};
 `;
 const StyledProfileLink = styled(NavLink)`
   color: ${COLORS.primary};

@@ -113,6 +113,8 @@ const Signup = () => {
             name="username"
             type="text"
             placeholder=""
+            minlength="5"
+            maxlength="13"
             required
           ></input>
         </div>
@@ -123,6 +125,8 @@ const Signup = () => {
             name="password"
             type={passwordType}
             placeholder=""
+            minlength="5"
+            maxlength="20"
             required
           ></input>
           {passwordType === "password" && (

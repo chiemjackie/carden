@@ -3,5 +3,6 @@ export const COLORS = {
   secondary: "#d12197",
   tertiary: "#18CBD1",
   red: "red",
+  orange: "darkorange",
   cardback: "maroon",
 };

@@ -59,7 +59,7 @@ const ProfilePageElement = styled.div`
     color: red;
   }
   &.sunflower {
-    color: darkorange;
+    color: ${COLORS.orange};
   }
 `;
 
