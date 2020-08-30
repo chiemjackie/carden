@@ -5,6 +5,8 @@ import styled from "styled-components";
 import logo_and_carden from "../assets/logo_and_carden.png";
 import { COLORS } from "../constants";
 import { CurrentUserContext } from "./CurrentUserContext";
+import { GiSunflower } from "react-icons/gi";
+import { IoIosRose } from "react-icons/io";
 
 const Navbar = () => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -96,7 +98,7 @@ const StyledRose = styled(IoIosRose)`
 const StyledSunflower = styled(GiSunflower)`
   color: darkorange;
   margin-right: 2%;
-  font-size: 2rem;
+  font-size: 2.2rem;
 `;
 
 const NumRoses = styled.div`

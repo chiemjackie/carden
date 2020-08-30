@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+
 import { GiSunflower } from "react-icons/gi";
 import { IoIosRose } from "react-icons/io";
 import { FiUser } from "react-icons/fi";
-
+import { COLORS } from "../constants";
 import { CurrentUserContext } from "./CurrentUserContext";
 
 const Profile = () => {
@@ -13,42 +14,77 @@ const Profile = () => {
   const { profileId } = useParams();
   const history = useHistory();
 
-  const logout = () => {
+  const logout = (event) => {
+    event.preventDefault();
     setCurrentUser(null);
     history.push("/");
   };
 
   return (
     <ProfilePageWrapper>
-      <ProfilePageElement>
-        <FiUser />
+      <ProfilePageElement className="user">
+        <StyledUserIcon />
         <Username>{currentUser.username}</Username>
       </ProfilePageElement>
-      <ProfilePageElement>
-        <IoIosRose />
-        <Roses>{currentUser.roses}</Roses>
+      <ProfilePageElement className="rose">
+        <StyledRose />
+        <NumRoses>{currentUser.roses}</NumRoses>
       </ProfilePageElement>
-      <ProfilePageElement>
-        <GiSunflower />
-        <Sunflowers>{currentUser.sunflowers}</Sunflowers>
+      <ProfilePageElement className="sunflower">
+        <StyledSunflower />
+        <NumSunflowers>{currentUser.sunflowers}</NumSunflowers>
       </ProfilePageElement>
-      <ProfilePageElement>
-        <LogoutButton onClick={logout}>LOG OUT</LogoutButton>
-      </ProfilePageElement>
+      {profileId === currentUser.username && (
+        <ProfilePageElement>
+          <LogoutButton onClick={logout}>LOG OUT</LogoutButton>
+        </ProfilePageElement>
+      )}
     </ProfilePageWrapper>
   );
 };
 
 const ProfilePageWrapper = styled.div`
-  margin: 10vw;
+  margin: 4vh 5vw 2vh;
 `;
 
 const ProfilePageElement = styled.div`
-  margin: 5vw;
+  display: flex;
+  align-items: center;
+  margin: 4vh 0;
+  font-size: 1.8rem;
+  &.user {
+    color: ${COLORS.primary};
+  }
+  &.rose {
+    color: red;
+  }
+  &.sunflower {
+    color: darkorange;
+  }
 `;
+
+const StyledUserIcon = styled(FiUser)`
+  font-size: 2.5rem;
+  margin-right: 1vw;
+`;
+
 const Username = styled.div``;
-const Roses = styled.div``;
-const Sunflowers = styled.div``;
-const LogoutButton = styled.button``;
+
+const StyledRose = styled(IoIosRose)`
+  font-size: 2.5rem;
+  margin-right: 1vw;
+`;
+const NumRoses = styled.div``;
+
+const StyledSunflower = styled(GiSunflower)`
+  font-size: 2.5rem;
+  margin-right: 1vw;
+`;
+const NumSunflowers = styled.div``;
+
+const LogoutButton = styled.button`
+  background-color: ${COLORS.secondary};
+  color: white;
+`;
 
 export default Profile;
