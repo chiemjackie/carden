@@ -7,15 +7,29 @@ const GameSelector = () => {
     <SelectorPageWrapper>
       <WarSelectorWrapper to="/play/war">
         <WarTitleBox>
-          <WarTitleBox>
-            <WarTitleText>War</WarTitleText>
-          </WarTitleBox>
+          <WarTitleText>War</WarTitleText>
+          <InvisibleLineBreak />
+          <WarSelectionNavLink to="/play/war/onecard">
+            One Card Battle
+          </WarSelectionNavLink>
+          <InvisibleLineBreak />
+          <WarSelectionNavLink to="/play/war/fulldeck">
+            Full Deck War
+          </WarSelectionNavLink>
         </WarTitleBox>
         <WarRulesBox>
-          <WarRulesTextTop>
+          <WarRulesTextTop>One Card Battle</WarRulesTextTop>
+          <WarRulesText>
+            A random player starts as dealer. Each turn, the dealer swaps. Each
+            player is dealt a card. The highest rank wins (e.g. 3, 10, King, and
+            Aces are high). If the ranks are tied, the dealer automatically
+            wins.
+          </WarRulesText>
+          <WarRulesTextTitle>Full Deck War</WarRulesTextTitle>
+          <WarRulesText>
             The deck is divided evenly, with each player receiving 26 random
             cards.
-          </WarRulesTextTop>
+          </WarRulesText>
           <WarRulesText>
             Each player turns up a card at the same time and the player with the
             higher card takes both cards and puts them, face down, on the bottom
@@ -34,9 +48,9 @@ const GameSelector = () => {
           </WarRulesText>
         </WarRulesBox>
       </WarSelectorWrapper>
-      <GoFishSelectorWrapper to="/play/gofish">
+      <GoFishSelectorWrapper>
         <GoFishTitleBox>
-          <GoFishTitleText>Go Fish</GoFishTitleText>
+          <GoFishTitleText to="/play/gofish">Go Fish</GoFishTitleText>
         </GoFishTitleBox>
         <GoFishRulesBox>
           <GoFishRulesTextTop>
@@ -71,56 +85,68 @@ const GameSelector = () => {
 
 const SelectorPageWrapper = styled.div``;
 
-const WarSelectorWrapper = styled(NavLink)`
+const WarSelectorWrapper = styled.div`
   display: flex;
   background: green;
   color: white;
   align-items: center;
-  min-height: 30%;
-  height: 30vh;
+  justify-content: center;
+  height: 40vh;
 `;
 
 const WarTitleBox = styled.div`
   display: flex;
-  justify-content: center;
-  text-align: center;
+  flex-flow: wrap;
   align-items: center;
-  height: 100%;
+  justify-content: center;
   width: 20%;
 `;
 
-const WarTitleText = styled.h2``;
+const WarTitleText = styled.h2`
+  margin-bottom: 3vh;
+`;
+
+const WarSelectionNavLink = styled(NavLink)`
+  margin-top: 3vh;
+  color: white;
+`;
 
 const WarRulesBox = styled.div`
   width: 80%;
   padding: 3vh;
 `;
 
-const WarRulesTextTop = styled.p``;
+const WarRulesTextTop = styled.h4``;
 
-const WarRulesText = styled.p`
-  margin-top: 2vh;
+const WarRulesTextTitle = styled.h4`
+  padding-top: 25px;
 `;
 
-const GoFishSelectorWrapper = styled(NavLink)`
+const WarRulesText = styled.p`
+  margin-top: 1vh;
+`;
+
+const GoFishSelectorWrapper = styled.div`
   display: flex;
   align-items: center;
   background: purple;
   color: white;
-  min-height: 30%;
-  height: 35vh;
+  height: 32vh;
 `;
 
 const GoFishTitleBox = styled.div`
   display: flex;
   justify-content: center;
-  text-align: center;
   align-items: center;
   height: 100%;
   width: 20%;
 `;
 
-const GoFishTitleText = styled.h2``;
+const GoFishTitleText = styled(NavLink)`
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+`;
 
 const GoFishRulesBox = styled.div`
   width: 80%;
@@ -130,7 +156,11 @@ const GoFishRulesBox = styled.div`
 const GoFishRulesTextTop = styled.p``;
 
 const GoFishRulesText = styled.p`
-  margin-top: 2vh;
+  margin-top: 1vh;
+`;
+
+const InvisibleLineBreak = styled.div`
+  width: 100%;
 `;
 
 export default GameSelector;

@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import GlobalStyles from "./components/Globalstyles";
 import Navbar from "./components/Navbar";
 import Homepage from "./components/Homepage";
-import War from "./components/War/War";
+import OneCard from "./components/War/OneCard";
+import FullDeck from "./components/War/FullDeck";
 import GoFish from "./components/GoFish/GoFish";
 import GameSelector from "./components/GameSelector";
 import Account from "./components/AccountPage/AccountPage";
@@ -25,8 +26,11 @@ function App() {
           <Route exact path="/play">
             <GameSelector />
           </Route>
-          <Route exact path="/play/war">
-            <War />
+          <Route exact path="/play/war/onecard">
+            <OneCard />
+          </Route>
+          <Route exact path="/play/war/fulldeck">
+            <FullDeck />
           </Route>
           <Route exact path="/play/gofish">
             <GoFish />
