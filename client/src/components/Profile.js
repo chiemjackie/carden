@@ -48,10 +48,32 @@ const Profile = () => {
     <ProfilePageWrapper>
       {status === "idle" ? (
         <>
-          {guestProfile && (
+          {guestProfile && profileId !== currentUser.username && (
             <GuestProfileText>
               Sorry, you cannot view a guest profile.
             </GuestProfileText>
+          )}
+          {guestProfile && profileId === currentUser.username && (
+            <>
+              <ProfilePageElement className="user">
+                <StyledUserIcon />
+                <Username>{currentUser.username}</Username>
+              </ProfilePageElement>
+              <ProfilePageElement className="rose">
+                <StyledRose />
+                <NumRoses>{currentUser.roses}</NumRoses>
+                <BuyRoseButton>
+                  Buy a Rose (Cost: 1000 Sunflowers)
+                </BuyRoseButton>
+              </ProfilePageElement>
+              <ProfilePageElement className="sunflower">
+                <StyledSunflower />
+                <NumSunflowers>{currentUser.sunflowers}</NumSunflowers>
+                <BuySunflowerButton>
+                  Buy 1000 Sunflowers (Cost: 1 Rose)
+                </BuySunflowerButton>
+              </ProfilePageElement>
+            </>
           )}
           {!guestProfile && (
             <>
@@ -118,13 +140,27 @@ const StyledRose = styled(IoIosRose)`
   font-size: 2.5rem;
   margin-right: 1vw;
 `;
-const NumRoses = styled.div``;
+const NumRoses = styled.div`
+  margin-right: 3vw;
+`;
+
+const BuyRoseButton = styled.button`
+  background-color: ${COLORS.secondary};
+  color: white;
+`;
 
 const StyledSunflower = styled(GiSunflower)`
   font-size: 2.5rem;
   margin-right: 1vw;
 `;
-const NumSunflowers = styled.div``;
+const NumSunflowers = styled.div`
+  margin-right: 3vw;
+`;
+
+const BuySunflowerButton = styled.button`
+  background-color: ${COLORS.secondary};
+  color: white;
+`;
 
 const LogoutButton = styled.button`
   background-color: ${COLORS.secondary};

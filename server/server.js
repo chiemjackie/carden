@@ -3,7 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const { getUsers, addUser } = require("./handlers");
+const { getUsers, addUser, modifyFlowers } = require("./handlers");
 
 const PORT = process.env.PORT || 8000;
 
@@ -16,6 +16,7 @@ express()
 
   .get("/account/login", getUsers)
   .post("/account/signup", addUser)
+  .patch("/account/flowers", modifyFlowers)
 
   // .post("/exercise-2/greeting", createGreeting)
   // .get("/exercise-2/greeting/:_id", getGreeting)

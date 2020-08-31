@@ -5,6 +5,7 @@ export const COLORS = {
   red: "red",
   orange: "darkorange",
   cardback: "maroon",
+  blue: "blue",
 };
 
 export const DECK = [

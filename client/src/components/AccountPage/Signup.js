@@ -77,6 +77,7 @@ const Signup = () => {
           }),
         });
     }
+    event.target.reset();
   };
 
   return (
