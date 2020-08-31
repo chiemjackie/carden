@@ -173,6 +173,7 @@ const FullDeck = () => {
       </OppSide>
       <GameFunctions>
         <GameFunctionsLeft>
+          <ResetButton onClick={reset}>Reset</ResetButton>
           <Rounds>
             Round: {turn}
             {/* Avg: {average} */}
@@ -193,7 +194,6 @@ const FullDeck = () => {
           >
             Auto Play
           </AutoPlayButton>
-          <ResetButton onClick={reset}>Reset</ResetButton>
         </GameFunctionsRight>
       </GameFunctions>
       <SelfSide>
@@ -236,7 +236,9 @@ const GameFunctions = styled.section`
   justify-content: space-between;
 `;
 
-const GameFunctionsLeft = styled.div``;
+const GameFunctionsLeft = styled.div`
+  display: flex;
+`;
 
 const GameFunctionsCentre = styled.div`
   display: flex;
@@ -248,16 +250,23 @@ const GameFunctionsCentre = styled.div`
   /* font-size: 2vw; */
 `;
 
-const GameFunctionsRight = styled.div``;
+const GameFunctionsRight = styled.div`
+  display: flex;
+`;
 
-const AutoPlayButton = styled.button``;
+const AutoPlayButton = styled.button`
+  margin-right: 3vw;
+  width: 75px;
+`;
 
 const NextButton = styled.button`
   margin-right: 3vw;
+  width: 80px;
 `;
 
 const ResetButton = styled.button`
   margin: 0 3vw;
+  width: 75px;
 `;
 
 const GameStatus = styled.p`
@@ -278,7 +287,7 @@ const LineBreak = styled.div`
 `;
 
 const Rounds = styled.div`
-  margin: 0 0 0 3vw;
+  width: 80px;
 `;
 
 export default FullDeck;

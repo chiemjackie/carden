@@ -36,6 +36,7 @@ const Line = styled.hr`
 
 const AuthorImage = styled.img`
   height: 20vh;
+  border: 1px solid grey;
 `;
 
 const QuoteWrapper = styled.div`

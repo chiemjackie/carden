@@ -65,17 +65,15 @@ const Profile = () => {
               <ProfilePageElement className="rose">
                 <StyledRose />
                 <NumRoses>{currentUser.roses}</NumRoses>
-                <BuyRoseButton>
-                  Buy a Rose (Cost: 1000 Sunflowers)
-                </BuyRoseButton>
               </ProfilePageElement>
+              <BuyRoseButton>Buy a Rose (Cost: 1000 Sunflowers)</BuyRoseButton>
               <ProfilePageElement className="sunflower">
                 <StyledSunflower />
                 <NumSunflowers>{currentUser.sunflowers}</NumSunflowers>
-                <BuySunflowerButton>
-                  Buy 1000 Sunflowers (Cost: 1 Rose)
-                </BuySunflowerButton>
               </ProfilePageElement>
+              <BuySunflowerButton>
+                Buy 1000 Sunflowers (Cost: 1 Rose)
+              </BuySunflowerButton>
             </>
           )}
           {((currentUser &&
@@ -100,7 +98,7 @@ const Profile = () => {
 
           {currentUser && profileId === currentUser.username && (
             <ProfilePageElement>
-              <LogoutButton onClick={logout}>LOG OUT</LogoutButton>
+              <LogoutButton onClick={logout}>Log out</LogoutButton>
             </ProfilePageElement>
           )}
         </>
@@ -112,15 +110,16 @@ const Profile = () => {
 };
 
 const ProfilePageWrapper = styled.div`
-  margin: 4vh 5vw 2vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ProfilePageTitle = styled.h1`
-  display: flex;
-  justify-content: center;
-  width: 100%;
   color: Brown;
-  /* text-decoration: underline; */
+  text-decoration: underline;
+  margin-bottom: 2vh;
 `;
 
 const GuestProfileText = styled.p`
@@ -131,7 +130,7 @@ const GuestProfileText = styled.p`
 const ProfilePageElement = styled.div`
   display: flex;
   align-items: center;
-  margin: 4vh 0;
+  margin: 2vh 0;
   font-size: 1.8rem;
   &.user {
     color: ${COLORS.primary};
@@ -155,12 +154,10 @@ const StyledRose = styled(IoIosRose)`
   font-size: 2.5rem;
   margin-right: 1vw;
 `;
-const NumRoses = styled.div`
-  margin-right: 3vw;
-`;
+const NumRoses = styled.div``;
 
 const BuyRoseButton = styled.button`
-  background-color: ${COLORS.secondary};
+  background-color: ${COLORS.red};
   color: white;
 `;
 
@@ -168,17 +165,16 @@ const StyledSunflower = styled(GiSunflower)`
   font-size: 2.5rem;
   margin-right: 1vw;
 `;
-const NumSunflowers = styled.div`
-  margin-right: 3vw;
-`;
+const NumSunflowers = styled.div``;
 
 const BuySunflowerButton = styled.button`
-  background-color: ${COLORS.secondary};
+  background-color: ${COLORS.orange};
   color: white;
 `;
 
 const LogoutButton = styled.button`
-  background-color: ${COLORS.secondary};
+  margin-top: 4vh;
+  background-color: ${COLORS.blue};
   color: white;
 `;
 
