@@ -48,12 +48,14 @@ const Profile = () => {
     <ProfilePageWrapper>
       {status === "idle" ? (
         <>
-          {guestProfile && profileId !== currentUser.username && (
-            <GuestProfileText>
-              Sorry, you cannot view a guest profile.
-            </GuestProfileText>
-          )}
-          {guestProfile && profileId === currentUser.username && (
+          {currentUser &&
+            guestProfile &&
+            profileId !== currentUser.username && (
+              <GuestProfileText>
+                Sorry, you cannot view a guest profile.
+              </GuestProfileText>
+            )}
+          {currentUser && profileId === currentUser.username && (
             <>
               <ProfilePageElement className="user">
                 <StyledUserIcon />
@@ -75,7 +77,10 @@ const Profile = () => {
               </ProfilePageElement>
             </>
           )}
-          {!guestProfile && (
+          {((currentUser &&
+            !guestProfile &&
+            profileId !== currentUser.username) ||
+            (!currentUser && !guestProfile)) && (
             <>
               <ProfilePageElement className="user">
                 <StyledUserIcon />
@@ -91,7 +96,8 @@ const Profile = () => {
               </ProfilePageElement>
             </>
           )}
-          {(guestProfile || profileId === currentUser.username) && (
+
+          {currentUser && profileId === currentUser.username && (
             <ProfilePageElement>
               <LogoutButton onClick={logout}>LOG OUT</LogoutButton>
             </ProfilePageElement>

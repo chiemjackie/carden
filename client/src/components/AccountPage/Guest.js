@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-// import styled from "styled-components";
+import styled from "styled-components";
 
 import { CurrentUserContext } from "../CurrentUserContext";
 import { useHistory } from "react-router-dom";
@@ -22,15 +22,44 @@ const Guest = () => {
   };
 
   return (
-    <div>
-      <h2>Play as a guest</h2>
-      <form onSubmit={guestRegister}>
-        <label for="submit">Continue without an account</label>
-        <input name="submit" id="submit" type="submit" value="Continue"></input>
-        <p>*Note that you will lose all progress upon leaving Carden.</p>
-      </form>
-    </div>
+    <GuestLoginWrapper>
+      <GuestLoginTitle>Play as a guest</GuestLoginTitle>
+      <GuestLoginForm onSubmit={guestRegister}>
+        <GuestLoginInput
+          name="submit"
+          id="submit"
+          type="submit"
+          value="Continue as Guest"
+        ></GuestLoginInput>
+        <GuestLoginText>
+          *Note that your progress will not be saved when
+        </GuestLoginText>
+        <GuestLoginText>
+          browser data is cleared or upon logging out.
+        </GuestLoginText>
+      </GuestLoginForm>
+    </GuestLoginWrapper>
   );
 };
+
+const GuestLoginWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const GuestLoginTitle = styled.h2`
+  margin-bottom: 1vh;
+`;
+const GuestLoginForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const GuestLoginInput = styled.input`
+  width: 50%;
+  margin: 2vh 0 1vh;
+`;
+const GuestLoginText = styled.p``;
 
 export default Guest;

@@ -48,53 +48,108 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={login}>
-        <div>
-          <label htmlFor="loginEmail">Email:</label>
-          <input
+    <LoginWrapper>
+      <LoginTitle>Login</LoginTitle>
+      <LoginForm onSubmit={login}>
+        <EmailWrapper>
+          <LoginLabel htmlFor="loginEmail">Email:</LoginLabel>
+          <LoginInput
             id="loginEmail"
             name="loginEmail"
             type="email"
-            placeholder=""
+            placeholder="jane.doe@email.com"
             required
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="loginPassword">Password:</label>
-          <input
+          ></LoginInput>
+        </EmailWrapper>
+        <PasswordWrapper>
+          {passwordType === "password" && (
+            <ShowPasswordButton onClick={toggleShowPassword}>
+              <BsEyeFill />
+            </ShowPasswordButton>
+          )}
+          {passwordType === "text" && (
+            <ShowPasswordButton onClick={toggleShowPassword}>
+              <BsEyeSlashFill />
+            </ShowPasswordButton>
+          )}
+          <LoginLabel htmlFor="loginPassword">Password:</LoginLabel>
+          <LoginInput
             id="loginPassword"
             name="loginPassword"
             type={passwordType}
-            placeholder=""
+            placeholder="********"
             required
-          ></input>
-          {passwordType === "password" && (
-            <button onClick={toggleShowPassword}>
-              <BsEyeFill />
-            </button>
-          )}
-          {passwordType === "text" && (
-            <button onClick={toggleShowPassword}>
-              <BsEyeSlashFill />
-            </button>
-          )}
-        </div>
-        <input type="submit" value="Login"></input>
-      </form>
+          ></LoginInput>
+        </PasswordWrapper>
+        <SubmitButton type="submit" value="Login"></SubmitButton>
+      </LoginForm>
       {loginFailed && (
-        <RejectedLogin>
-          <HiX />
-          <p>Incorrect email or password - please try again.</p>
-        </RejectedLogin>
+        <LoginInfoWrapper>
+          <StyledX />
+          <LoginInfoText>
+            Incorrect email or password - please try again.
+          </LoginInfoText>
+        </LoginInfoWrapper>
       )}
-    </div>
+    </LoginWrapper>
   );
 };
 
-const RejectedLogin = styled.div`
+const LoginWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const LoginTitle = styled.h2`
+  margin-bottom: 1vh;
+`;
+const LoginForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  align-items: right;
+  padding-right: 16px;
+`;
+const EmailWrapper = styled.div``;
+
+const PasswordWrapper = styled.div``;
+
+const LoginLabel = styled.label`
+  margin-right: 1vw;
+`;
+const LoginInput = styled.input`
+  width: 150px;
+  margin-top: 1vh;
+`;
+
+const ShowPasswordButton = styled.button`
+  margin-left: 12px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+`;
+
+const SubmitButton = styled.input`
+  margin-top: 2vh;
+  width: 94%;
+  margin-left: 16px;
+`;
+
+const LoginInfoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
+
+const StyledX = styled(HiX)`
+  color: red;
+  font-size: 1.6rem;
+`;
+
+const LoginInfoText = styled.p`
+  margin: 1vh 0 1vh 8px;
 `;
 
 export default Login;

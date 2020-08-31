@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import styled from "styled-components";
+import styled from "styled-components";
 
 import { useHistory } from "react-router-dom";
 
@@ -28,13 +28,39 @@ const ProfileSearch = () => {
   };
 
   return (
-    <div>
-      <p>Find a player:</p>
-      <input id="username" type="text" placeholder="Username"></input>
-      <button onClick={search}>Search</button>
-      {usernameMatch === false && <p>That user does not exist.</p>}
-    </div>
+    <ProfileSearchWrapper>
+      <ProfileSearchTitle>Find a Player</ProfileSearchTitle>
+      <ProfileSearchbar
+        id="username"
+        type="text"
+        placeholder="Username"
+      ></ProfileSearchbar>
+      <ProfileSearchButton onClick={search}>Search</ProfileSearchButton>
+      {usernameMatch === false && (
+        <ProfileSearchText>That user does not exist.</ProfileSearchText>
+      )}
+    </ProfileSearchWrapper>
   );
 };
+
+const ProfileSearchWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const ProfileSearchTitle = styled.h3`
+  margin-bottom: 1vh;
+`;
+const ProfileSearchbar = styled.input`
+  width: 150px;
+  margin-top: 1vh;
+`;
+
+const ProfileSearchButton = styled.button`
+  margin: 2vh 0 2vh;
+`;
+
+const ProfileSearchText = styled.p``;
 
 export default ProfileSearch;

@@ -27,7 +27,7 @@ const AccountWrapper = styled.div`
 const Line = styled.hr`
   width: 90vw;
   border: 1px solid lightgrey;
-  margin: 3vw;
+  margin: 4vh 4vh 3vh;
 `;
 
 export default Account;

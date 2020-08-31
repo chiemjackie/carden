@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { HiX, HiCheck } from "react-icons/hi";
+import { COLORS } from "../../constants";
 
 const Signup = () => {
   const [passwordType, setPasswordType] = useState("password");
@@ -81,115 +82,186 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <h2>Register for an account</h2>
-      <form onSubmit={register}>
-        <div>
-          <label htmlFor="fname">First name:</label>
-          <input
+    <SignupWrapper>
+      <SignupTitle>Register for an account</SignupTitle>
+      <SignupForm onSubmit={register}>
+        <FNameWrapper>
+          <RegistrationLabel htmlFor="fname">First name:</RegistrationLabel>
+          <RegistrationInput
             id="fname"
             name="fname"
             type="text"
-            placeholder=""
+            placeholder="Jane"
             required
-          ></input>
-          <label htmlFor="lname">Last name:</label>
-          <input
+          ></RegistrationInput>
+        </FNameWrapper>
+        <LNameWrapper>
+          <RegistrationLabel htmlFor="lname">Last name:</RegistrationLabel>
+          <RegistrationInput
             id="lname"
             name="lname"
             type="text"
-            placeholder=""
+            placeholder="Doe"
             required
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
+          ></RegistrationInput>
+        </LNameWrapper>
+        <EmailWrapper>
+          <RegistrationLabel htmlFor="email">Email:</RegistrationLabel>
+          <RegistrationInput
             id="email"
             name="email"
             type="email"
-            placeholder=""
+            placeholder="jane.doe@email.com"
             required
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
+          ></RegistrationInput>
+        </EmailWrapper>
+        <UsernameWrapper>
+          <RegistrationLabel htmlFor="username">Username:</RegistrationLabel>
+          <RegistrationInput
             id="username"
             name="username"
             type="text"
-            placeholder=""
+            placeholder="janedoe123"
             minlength="5"
             maxlength="13"
             required
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
+          ></RegistrationInput>
+        </UsernameWrapper>
+        <PasswordWrapper>
+          {passwordType === "password" && (
+            <ShowPasswordButton onClick={toggleShowPassword}>
+              <BsEyeFill />
+            </ShowPasswordButton>
+          )}
+          {passwordType === "text" && (
+            <ShowPasswordButton onClick={toggleShowPassword}>
+              <BsEyeSlashFill />
+            </ShowPasswordButton>
+          )}
+          <RegistrationLabel htmlFor="password">Password:</RegistrationLabel>
+          <RegistrationInput
             id="password"
             name="password"
             type={passwordType}
-            placeholder=""
+            placeholder="********"
             minlength="5"
             maxlength="20"
             required
-          ></input>
-          {passwordType === "password" && (
-            <button onClick={toggleShowPassword}>
-              <BsEyeFill />
-            </button>
-          )}
-          {passwordType === "text" && (
-            <button onClick={toggleShowPassword}>
-              <BsEyeSlashFill />
-            </button>
-          )}
-        </div>
-        <input type="submit" value="Register"></input>
-      </form>
+          ></RegistrationInput>
+        </PasswordWrapper>
+        <SubmitButton type="submit" value="Register"></SubmitButton>
+      </SignupForm>
       {emailTaken && (
-        <RegistrationInfoWrapper>
-          <HiX />
-          <RegistrationInfoText>
+        <SignupInfoWrapper>
+          <StyledX />
+          <SignupInfoText>
             This email is already in use - please use a different one.
-          </RegistrationInfoText>
-        </RegistrationInfoWrapper>
+          </SignupInfoText>
+        </SignupInfoWrapper>
       )}
       {usernameTaken && (
-        <RegistrationInfoWrapper>
-          <HiX />
-          <RegistrationInfoText>
+        <SignupInfoWrapper>
+          <StyledX />
+          <SignupInfoText>
             This username is already in use - please try something else.
-          </RegistrationInfoText>
-        </RegistrationInfoWrapper>
+          </SignupInfoText>
+        </SignupInfoWrapper>
       )}
       {nameContainsGuest && (
-        <RegistrationInfoWrapper>
-          <HiX />
-          <RegistrationInfoText>
+        <SignupInfoWrapper>
+          <StyledX />
+          <SignupInfoText>
             You cannot start your username with "guest" - please try something
             else.
-          </RegistrationInfoText>
-        </RegistrationInfoWrapper>
+          </SignupInfoText>
+        </SignupInfoWrapper>
       )}
       {readyForLogin && (
-        <RegistrationInfoWrapper>
-          <HiCheck />
-          <RegistrationInfoText>
+        <SignupInfoWrapper>
+          <StyledCheck />
+          <SignupInfoText>
             Registration successful! Please login below with your new
             credentials.
-          </RegistrationInfoText>
-        </RegistrationInfoWrapper>
+          </SignupInfoText>
+        </SignupInfoWrapper>
       )}
-    </div>
+    </SignupWrapper>
   );
 };
 
-const RegistrationInfoWrapper = styled.div`
+const SignupWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
-const RegistrationInfoText = styled.p``;
+const SignupTitle = styled.h2`
+  margin-bottom: 1vh;
+`;
+
+const SignupForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  align-items: right;
+  padding-right: 16px;
+`;
+
+const FNameWrapper = styled.div``;
+
+const LNameWrapper = styled.div``;
+
+const EmailWrapper = styled.div``;
+
+const UsernameWrapper = styled.div``;
+
+const PasswordWrapper = styled.div``;
+
+const RegistrationLabel = styled.label`
+  margin-right: 1vw;
+`;
+
+const RegistrationInput = styled.input`
+  width: 150px;
+  margin-top: 1vh;
+`;
+
+const ShowPasswordButton = styled.button`
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  margin-left: 12px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+`;
+
+const SubmitButton = styled.input`
+  margin-top: 2vh;
+  width: 94%;
+  margin-left: 16px;
+`;
+
+const SignupInfoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
+
+const StyledX = styled(HiX)`
+  color: red;
+  font-size: 1.6rem;
+`;
+
+const StyledCheck = styled(HiCheck)`
+  color: ${COLORS.primary};
+  font-size: 1.6rem;
+`;
+
+const SignupInfoText = styled.p`
+  margin: 1vh 0 1vh 8px;
+`;
 
 export default Signup;
