@@ -55,12 +55,14 @@ const NavbarWrapper = styled.nav`
   text-align: center;
   margin: 5px 15px 30px;
   font-weight: bold;
+  font-family: "Lucida Console", Courier, monospace;
 `;
 
 const NavItem = styled.li`
   display: flex;
   align-items: center;
   text-align: center;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 `;
 
 const NavLeftSection = styled.div`

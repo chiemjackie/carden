@@ -16,7 +16,7 @@ express()
 
   .get("/account/login", getUsers)
   .post("/account/signup", addUser)
-  .patch("/account/flowers", modifyFlowers)
+  .put("/account/flowers", modifyFlowers)
 
   // .post("/exercise-2/greeting", createGreeting)
   // .get("/exercise-2/greeting/:_id", getGreeting)

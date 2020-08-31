@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "global": "^4.4.0",
     "material-ui": "^0.20.2",
+    "nodemon": "^2.0.4",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.1.1"

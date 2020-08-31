@@ -1,6 +1,8 @@
 const { MongoClient } = require("mongodb");
 const { request } = require("express");
 
+const ObjectId = require("mongodb").ObjectID;
+
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 
@@ -11,27 +13,27 @@ const options = {
 
 const modifyFlowers = async (req, res) => {
   const client = await MongoClient(MONGO_URI, options);
-  // const userId = req.body._id;
-  // const roses = req.body.roses;
-  // const sunflowers = req.body.sunflowers;
-
   console.log(req.body);
+  const userId = req.body._id;
+  const roses = req.body.roses;
+  const sunflowers = req.body.sunflowers;
 
   await client.connect();
 
   const db = client.db("carden");
   console.log("connected!");
 
-  // await db
-  //   .collection("users")
-  //   .updateOne(
-  //     { _id: userId },
-  //     { $set: { roses: roses } },
-  //     { $set: { sunflowers: sunflowers } }
-  //   );
+  await db
+    .collection("users")
+    .updateOne(
+      { _id: ObjectId(userId) },
+      { $set: { roses: roses, sunflowers: sunflowers } }
+    );
 
   client.close();
   console.log("disconnected!");
+
+  res.send();
 };
 
 const addUser = async (req, res) => {

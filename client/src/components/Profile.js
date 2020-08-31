@@ -118,7 +118,6 @@ const ProfilePageWrapper = styled.div`
 
 const ProfilePageTitle = styled.h1`
   color: Brown;
-  text-decoration: underline;
   margin-bottom: 2vh;
 `;
 

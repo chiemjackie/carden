@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 
 import CardFront from "../CardGraphics/CardFront";
@@ -7,123 +7,105 @@ import { CurrentUserContext } from "../CurrentUserContext";
 import { GiSunflower } from "react-icons/gi";
 import { IoIosRose } from "react-icons/io";
 
-const deck = DECK;
-
-// let oppCurrentCard = "";
-// let selfCurrentCard = "";
-// let rosesBet = 0;
-// let sunflowersBet = 0;
-
 const OneCard = () => {
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [gameStatus, setGameStatus] = useState("START");
   const [gameText, setGameText] = useState("START");
   const [oppCurrentCard, setOppCurrentCard] = useState("");
   const [selfCurrentCard, setSelfCurrentCard] = useState("");
-  const [rosesBet, setRosesBet] = useState(0);
-  const [sunflowersBet, setSunflowersBet] = useState(0);
+  const [deck, setDeck] = useState(DECK);
+  const [rosesBetInput, setRosesBetInput] = useState(0);
+  const [sunflowersBetInput, setSunflowersBetInput] = useState(0);
+
+  console.log(currentUser);
 
   let roses;
   let sunflowers;
   let username;
   let _id;
 
+  useEffect(() => {
+    // console.log("deck has changed");
+  }, [deck]);
+
   if (currentUser) {
-    roses = currentUser.roses;
-    sunflowers = currentUser.sunflowers;
+    roses = parseInt(currentUser.roses);
+    sunflowers = parseInt(currentUser.sunflowers);
     username = currentUser.username;
     _id = currentUser._id;
   }
 
-  const rosesInt = parseInt(roses);
-  const sunflowersInt = parseInt(sunflowers);
+  function determineWinner() {
+    let tempDeck = [...deck];
 
-  async function determineWinner() {
-    await shuffleDeck();
-    await playCard();
+    for (let i = tempDeck.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = tempDeck[i];
+      tempDeck[i] = tempDeck[j];
+      tempDeck[j] = temp;
+    }
 
-    if (oppCurrentCard.value >= selfCurrentCard.value) {
+    setDeck(tempDeck);
+    setOppCurrentCard(tempDeck[0]);
+    setSelfCurrentCard(tempDeck[1]);
+
+    console.log(
+      "shuffle deck and playcard fuinction ran",
+      oppCurrentCard,
+      selfCurrentCard
+    );
+    if (tempDeck[0].value >= tempDeck[1].value) {
+      // console.log("lost1111", rosesBetInput, sunflowersBetInput);
       setGameStatus("Battle LOST!");
       setGameText("You lost your pride as well as your money.");
-      if (rosesBet > 0 || sunflowersBet > 0) {
+      if (parseInt(rosesBetInput) > 0 || parseInt(sunflowersBetInput) > 0) {
+        console.log("fetch call");
+        setCurrentUser((prevstate) => {
+          return {
+            ...prevstate,
+            roses: roses - parseInt(rosesBetInput),
+            sunflowers: sunflowers - parseInt(sunflowersBetInput),
+          };
+        });
         fetch("/account/flowers", {
-          method: `patch`,
+          method: `put`,
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
             _id: _id,
-            roses: roses - rosesBet,
-            sunflowers: sunflowers - sunflowersBet,
+            roses: roses - parseInt(rosesBetInput),
+            sunflowers: sunflowers - parseInt(sunflowersBetInput),
           }),
-        });
-        console.log("lost");
+        }).then((res) => res.text());
+      } else if (tempDeck[0].value < tempDeck[1].value) {
+        setGameStatus("Battle WON!");
+        setGameText(`Congratulations, but you're still a loser.`);
+        if (parseInt(rosesBetInput) > 0 || parseInt(sunflowersBetInput) > 0) {
+          console.log("win");
+        }
       }
-    } else if (oppCurrentCard.value < selfCurrentCard.value) {
-      setGameStatus("Battle WON!");
-      setGameText(`Congratulations, but you're still a loser.`);
-      if (rosesBet > 0 || sunflowersBet > 0) {
-        // fetch("/account/flowers", {
-        //   method: `patch`,
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify({
-        //     _id: _id,
-        //     roses: roses + rosesBet,
-        //     sunflowers: sunflowers + sunflowersBet,
-        //   }),
-        // })
-        //   .then((response) => response.json())
-        //   .then((json) => console.log(json));
-        console.log("won");
-      }
-    }
-  }
-
-  async function playCard() {
-    setOppCurrentCard(deck[0]);
-    setSelfCurrentCard(deck[1]);
-    // oppCurrentCard = deck[0];
-    // selfCurrentCard = deck[1];
-  }
-
-  async function shuffleDeck() {
-    for (let i = deck.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      let temp = deck[i];
-      deck[i] = deck[j];
-      deck[j] = temp;
     }
   }
 
   function setBet() {
-    let rosesBetInput = parseInt(document.getElementById("roses").value);
-    let sunflowersBetInput = parseInt(
-      document.getElementById("sunflowers").value
-    );
-
-    if (rosesBetInput && rosesInt >= rosesBetInput) {
-      setRosesBet(rosesBetInput);
-      // rosesBet = rosesBetInput;
+    if (rosesBetInput && roses >= rosesBetInput) {
       setGameStatus("Bet added!");
       setGameText(
-        `Your bet is now ${rosesBet} Rose(s) and ${sunflowersBet} Sunflower(s).`
+        `Your bet is now ${rosesBetInput} Rose(s) and ${sunflowersBetInput} Sunflower(s).`
       );
     }
 
-    if (sunflowersBetInput && sunflowersInt >= sunflowersBetInput) {
-      setSunflowersBet(sunflowersBetInput);
-      // sunflowersBet = sunflowersBetInput;
+    if (sunflowersBetInput && sunflowers >= sunflowersBetInput) {
       setGameStatus("Bet added!");
       setGameText(
-        `Your bet is now ${rosesBet} Rose(s) and ${sunflowersBet} Sunflower(s).`
+        `Your bet is now ${rosesBetInput} Rose(s) and ${sunflowersBetInput} Sunflower(s).`
       );
     }
 
     if (
-      (rosesBetInput && rosesInt < rosesBetInput) ||
-      (sunflowersBetInput && sunflowersInt < sunflowersBetInput)
+      (rosesBetInput && roses < rosesBetInput) ||
+      (sunflowersBetInput && sunflowers < sunflowersBetInput)
     ) {
       setGameStatus("Insufficient flowers!");
       setGameText("Decrease your bet to play.");
@@ -145,22 +127,30 @@ const OneCard = () => {
           {currentUser && (
             <>
               <StyledRose />
-              <NumRoses>{rosesInt}</NumRoses>
-              <NumRosesBet>{rosesBet}</NumRosesBet>
+              <NumRoses>{roses}</NumRoses>
+              <NumRosesBet>{rosesBetInput}</NumRosesBet>
               <RosesInput
                 name="roses"
                 id="roses"
                 type="text"
                 placeholder="Roses bet"
+                value={rosesBetInput}
+                onChange={(event) => {
+                  setRosesBetInput(event.target.value);
+                }}
               ></RosesInput>
               <StyledSunflower />
-              <NumSunflowers>{sunflowersInt}</NumSunflowers>
-              <NumSunflowersBet>{sunflowersBet}</NumSunflowersBet>
+              <NumSunflowers>{sunflowers}</NumSunflowers>
+              <NumSunflowersBet>{sunflowersBetInput}</NumSunflowersBet>
               <SunflowersInput
                 name="sunflowers"
                 id="sunflowers"
                 type="text"
                 placeholder="Sunflowers bet"
+                value={sunflowersBetInput}
+                onChange={(event) => {
+                  setSunflowersBetInput(event.target.value);
+                }}
               ></SunflowersInput>
               <BetButton onClick={setBet}>Confirm</BetButton>
             </>
