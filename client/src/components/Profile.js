@@ -46,6 +46,7 @@ const Profile = () => {
 
   return (
     <ProfilePageWrapper>
+      <ProfilePageTitle>User Profile</ProfilePageTitle>
       {status === "idle" ? (
         <>
           {currentUser &&
@@ -112,6 +113,14 @@ const Profile = () => {
 
 const ProfilePageWrapper = styled.div`
   margin: 4vh 5vw 2vh;
+`;
+
+const ProfilePageTitle = styled.h1`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: Brown;
+  /* text-decoration: underline; */
 `;
 
 const GuestProfileText = styled.p`

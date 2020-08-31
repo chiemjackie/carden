@@ -23,7 +23,17 @@ const OneCard = () => {
   const [rosesBet, setRosesBet] = useState(0);
   const [sunflowersBet, setSunflowersBet] = useState(0);
 
-  const { roses, sunflowers, username, _id } = currentUser;
+  let roses;
+  let sunflowers;
+  let username;
+  let _id;
+
+  if (currentUser) {
+    roses = currentUser.roses;
+    sunflowers = currentUser.sunflowers;
+    username = currentUser.username;
+    _id = currentUser._id;
+  }
 
   const rosesInt = parseInt(roses);
   const sunflowersInt = parseInt(sunflowers);
