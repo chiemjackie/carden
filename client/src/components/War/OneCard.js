@@ -17,16 +17,12 @@ const OneCard = () => {
   const [rosesBetInput, setRosesBetInput] = useState(0);
   const [sunflowersBetInput, setSunflowersBetInput] = useState(0);
 
-  console.log(currentUser);
-
   let roses;
   let sunflowers;
   let username;
   let _id;
 
-  useEffect(() => {
-    // console.log("deck has changed");
-  }, [deck]);
+  useEffect(() => {}, [deck]);
 
   if (currentUser) {
     roses = parseInt(currentUser.roses);
@@ -45,21 +41,15 @@ const OneCard = () => {
       tempDeck[j] = temp;
     }
 
+    console.log(tempDeck[0], tempDeck[1]);
     setDeck(tempDeck);
     setOppCurrentCard(tempDeck[0]);
     setSelfCurrentCard(tempDeck[1]);
 
-    console.log(
-      "shuffle deck and playcard fuinction ran",
-      oppCurrentCard,
-      selfCurrentCard
-    );
-    if (tempDeck[0].value >= tempDeck[1].value) {
-      // console.log("lost1111", rosesBetInput, sunflowersBetInput);
+    if (parseInt(tempDeck[0].value) >= parseInt(tempDeck[1].value)) {
       setGameStatus("Battle LOST!");
       setGameText("You lost your pride as well as your money.");
       if (parseInt(rosesBetInput) > 0 || parseInt(sunflowersBetInput) > 0) {
-        console.log("fetch call");
         setCurrentUser((prevstate) => {
           return {
             ...prevstate,
@@ -78,42 +68,30 @@ const OneCard = () => {
             sunflowers: sunflowers - parseInt(sunflowersBetInput),
           }),
         }).then((res) => res.text());
-      } else if (tempDeck[0].value < tempDeck[1].value) {
-        setGameStatus("Battle WON!");
-        setGameText(`Congratulations, but you're still a loser.`);
-        if (parseInt(rosesBetInput) > 0 || parseInt(sunflowersBetInput) > 0) {
-          console.log("win");
-        }
       }
-    }
-  }
-
-  function setBet() {
-    if (rosesBetInput && roses >= rosesBetInput) {
-      setGameStatus("Bet added!");
-      setGameText(
-        `Your bet is now ${rosesBetInput} Rose(s) and ${sunflowersBetInput} Sunflower(s).`
-      );
-    }
-
-    if (sunflowersBetInput && sunflowers >= sunflowersBetInput) {
-      setGameStatus("Bet added!");
-      setGameText(
-        `Your bet is now ${rosesBetInput} Rose(s) and ${sunflowersBetInput} Sunflower(s).`
-      );
-    }
-
-    if (
-      (rosesBetInput && roses < rosesBetInput) ||
-      (sunflowersBetInput && sunflowers < sunflowersBetInput)
-    ) {
-      setGameStatus("Insufficient flowers!");
-      setGameText("Decrease your bet to play.");
-    }
-
-    if (!rosesBetInput && !sunflowersBetInput) {
-      setGameStatus("No bet added!");
-      setGameText("Playing with previous bet.");
+    } else if (parseInt(tempDeck[0].value) < parseInt(tempDeck[1].value)) {
+      setGameStatus("Battle WON!");
+      setGameText(`Congratulations, but you're still a loser.`);
+      if (parseInt(rosesBetInput) > 0 || parseInt(sunflowersBetInput) > 0) {
+        setCurrentUser((prevstate) => {
+          return {
+            ...prevstate,
+            roses: roses + parseInt(rosesBetInput),
+            sunflowers: sunflowers + parseInt(sunflowersBetInput),
+          };
+        });
+        fetch("/account/flowers", {
+          method: `put`,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            _id: _id,
+            roses: roses + parseInt(rosesBetInput),
+            sunflowers: sunflowers + parseInt(sunflowersBetInput),
+          }),
+        }).then((res) => res.text());
+      }
     }
   }
 
@@ -152,7 +130,6 @@ const OneCard = () => {
                   setSunflowersBetInput(event.target.value);
                 }}
               ></SunflowersInput>
-              <BetButton onClick={setBet}>Confirm</BetButton>
             </>
           )}
         </GameFunctionsLeft>
@@ -241,11 +218,11 @@ const NumSunflowersBet = styled.div`
 
 const RosesInput = styled.input`
   margin-right: 1vw;
-  width: calc(60px + 3vw);
+  width: calc(50px);
 `;
 
 const SunflowersInput = styled.input`
-  width: calc(60px + 3vw);
+  width: calc(50px);
 `;
 
 const BetButton = styled.button`

@@ -1,7 +1,5 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectID } = require("mongodb");
 const { request } = require("express");
-
-const ObjectId = require("mongodb").ObjectID;
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -13,7 +11,6 @@ const options = {
 
 const modifyFlowers = async (req, res) => {
   const client = await MongoClient(MONGO_URI, options);
-  console.log(req.body);
   const userId = req.body._id;
   const roses = req.body.roses;
   const sunflowers = req.body.sunflowers;
@@ -26,7 +23,7 @@ const modifyFlowers = async (req, res) => {
   await db
     .collection("users")
     .updateOne(
-      { _id: ObjectId(userId) },
+      { _id: ObjectID(userId) },
       { $set: { roses: roses, sunflowers: sunflowers } }
     );
 

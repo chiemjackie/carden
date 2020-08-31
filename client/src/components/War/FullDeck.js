@@ -49,7 +49,7 @@ const FullDeck = () => {
   function toggleAutoPlay() {
     enableAutoPlay = !enableAutoPlay;
     if (enableAutoPlay) {
-      interval = setInterval(incrementTurn, 10);
+      interval = setInterval(incrementTurn, 1700);
     } else clearInterval(interval);
   }
 

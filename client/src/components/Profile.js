@@ -18,6 +18,18 @@ const Profile = () => {
   const { profileId } = useParams();
   const history = useHistory();
 
+  let roses;
+  let sunflowers;
+  let username;
+  let _id;
+
+  if (currentUser) {
+    roses = parseInt(currentUser.roses);
+    sunflowers = parseInt(currentUser.sunflowers);
+    username = currentUser.username;
+    _id = currentUser._id;
+  }
+
   const getProfile = (allUsers) => {
     allUsers.forEach((user) => {
       if (profileId === user.username) {
@@ -44,41 +56,81 @@ const Profile = () => {
     history.push("/");
   };
 
+  const buyRose = () => {
+    setCurrentUser((prevstate) => {
+      return {
+        ...prevstate,
+        roses: roses + 1,
+        sunflowers: sunflowers - 1000,
+      };
+    });
+    fetch("/account/flowers", {
+      method: `put`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        _id: _id,
+        roses: roses + 1,
+        sunflowers: sunflowers - 1000,
+      }),
+    }).then((res) => res.text());
+  };
+
+  const buySunflowers = () => {
+    setCurrentUser((prevstate) => {
+      return {
+        ...prevstate,
+        roses: roses - 1,
+        sunflowers: sunflowers + 1000,
+      };
+    });
+    fetch("/account/flowers", {
+      method: `put`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        _id: _id,
+        roses: roses - 1,
+        sunflowers: sunflowers + 1000,
+      }),
+    }).then((res) => res.text());
+  };
+
   return (
     <ProfilePageWrapper>
       <ProfilePageTitle>User Profile</ProfilePageTitle>
       {status === "idle" ? (
         <>
-          {currentUser &&
-            guestProfile &&
-            profileId !== currentUser.username && (
-              <GuestProfileText>
-                Sorry, you cannot view a guest profile.
-              </GuestProfileText>
-            )}
-          {currentUser && profileId === currentUser.username && (
+          {currentUser && guestProfile && profileId !== username && (
+            <GuestProfileText>
+              Sorry, you cannot view a guest profile.
+            </GuestProfileText>
+          )}
+          {currentUser && profileId === username && (
             <>
               <ProfilePageElement className="user">
                 <StyledUserIcon />
-                <Username>{currentUser.username}</Username>
+                <Username>{username}</Username>
               </ProfilePageElement>
               <ProfilePageElement className="rose">
                 <StyledRose />
-                <NumRoses>{currentUser.roses}</NumRoses>
+                <NumRoses>{roses}</NumRoses>
               </ProfilePageElement>
-              <BuyRoseButton>Buy a Rose (Cost: 1000 Sunflowers)</BuyRoseButton>
+              <BuyRoseButton onClick={buyRose}>
+                Buy a Rose (Cost: 1000 Sunflowers)
+              </BuyRoseButton>
               <ProfilePageElement className="sunflower">
                 <StyledSunflower />
-                <NumSunflowers>{currentUser.sunflowers}</NumSunflowers>
+                <NumSunflowers>{sunflowers}</NumSunflowers>
               </ProfilePageElement>
-              <BuySunflowerButton>
+              <BuySunflowerButton onClick={buySunflowers}>
                 Buy 1000 Sunflowers (Cost: 1 Rose)
               </BuySunflowerButton>
             </>
           )}
-          {((currentUser &&
-            !guestProfile &&
-            profileId !== currentUser.username) ||
+          {((currentUser && !guestProfile && profileId !== username) ||
             (!currentUser && !guestProfile)) && (
             <>
               <ProfilePageElement className="user">
@@ -96,7 +148,7 @@ const Profile = () => {
             </>
           )}
 
-          {currentUser && profileId === currentUser.username && (
+          {currentUser && profileId === username && (
             <ProfilePageElement>
               <LogoutButton onClick={logout}>Log out</LogoutButton>
             </ProfilePageElement>
