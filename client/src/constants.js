@@ -1,10 +1,9 @@
 export const COLORS = {
   primary: "#6bd039",
   secondary: "#e600ac",
-  tertiary: "#ffcc00",
   red: "red",
   orange: "darkorange",
-  cardback: "gray",
+  cardback: "#473e40",
   blue: "blue",
   green: "green",
 };
