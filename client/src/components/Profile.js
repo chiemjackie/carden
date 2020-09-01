@@ -15,6 +15,7 @@ const Profile = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [status, setStatus] = useState("loading");
   const [guestProfile, setGuestProfile] = useState(false);
+  const [claimed, setClaimed] = useState(false);
   const { profileId } = useParams();
   const history = useHistory();
 
@@ -98,6 +99,26 @@ const Profile = () => {
     }).then((res) => res.text());
   };
 
+  const claim = () => {
+    setCurrentUser((prevstate) => {
+      return {
+        ...prevstate,
+        sunflowers: sunflowers + 1000,
+      };
+    });
+    fetch("/account/flowers", {
+      method: `put`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        _id: _id,
+        sunflowers: sunflowers + 1000,
+      }),
+    }).then((res) => res.text());
+    setClaimed(true);
+  };
+
   return (
     <ProfilePageWrapper>
       <ProfilePageTitle>User Profile</ProfilePageTitle>
@@ -128,6 +149,15 @@ const Profile = () => {
               <BuySunflowerButton onClick={buySunflowers}>
                 Buy 1000 Sunflowers (Cost: 1 Rose)
               </BuySunflowerButton>
+              {roses <= 0 && sunflowers <= 0 && (
+                <ClaimButton
+                  name="claimButton"
+                  id="claimButton"
+                  onClick={claim}
+                >
+                  Claim free 1000 sunflowers
+                </ClaimButton>
+              )}
             </>
           )}
           {((currentUser && !guestProfile && profileId !== username) ||
@@ -220,6 +250,12 @@ const NumSunflowers = styled.div``;
 
 const BuySunflowerButton = styled.button`
   background-color: ${COLORS.orange};
+  color: white;
+`;
+
+const ClaimButton = styled.button`
+  margin-top: 4vh;
+  background-color: ${COLORS.tertiary};
   color: white;
 `;
 

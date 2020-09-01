@@ -19,7 +19,6 @@ const OneCard = () => {
 
   let roses;
   let sunflowers;
-  let username;
   let _id;
 
   useEffect(() => {}, [deck]);
@@ -27,7 +26,6 @@ const OneCard = () => {
   if (currentUser) {
     roses = parseInt(currentUser.roses);
     sunflowers = parseInt(currentUser.sunflowers);
-    username = currentUser.username;
     _id = currentUser._id;
   }
 
@@ -223,10 +221,6 @@ const RosesInput = styled.input`
 
 const SunflowersInput = styled.input`
   width: calc(50px);
-`;
-
-const BetButton = styled.button`
-  margin-left: 2vw;
 `;
 
 const GameFunctionsCentre = styled.div`
