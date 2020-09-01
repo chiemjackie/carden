@@ -21,6 +21,7 @@ const Homepage = () => {
 };
 
 const HomepageWrapper = styled.div`
+  margin: 5px auto;
   height: 77vh;
   background-size: cover;
   background-image: url(${wallpaper});
@@ -34,7 +35,6 @@ const Main = styled.section`
   align-items: center;
   text-align: center;
   flex-direction: column;
-  margin-top: 8px;
   height: 100%;
 `;
 

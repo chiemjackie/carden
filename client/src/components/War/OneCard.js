@@ -6,6 +6,7 @@ import { COLORS, DECK } from "../../constants";
 import { CurrentUserContext } from "../CurrentUserContext";
 import { GiSunflower } from "react-icons/gi";
 import { IoIosRose } from "react-icons/io";
+import warWallpaper from "../../assets/war_wallpaper.jpg";
 
 const OneCard = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
@@ -16,6 +17,7 @@ const OneCard = () => {
   const [deck, setDeck] = useState(DECK);
   const [rosesBetInput, setRosesBetInput] = useState(0);
   const [sunflowersBetInput, setSunflowersBetInput] = useState(0);
+  const [colorStatus, setColorStatus] = useState(null);
 
   let roses;
   let sunflowers;
@@ -45,6 +47,7 @@ const OneCard = () => {
     setSelfCurrentCard(tempDeck[1]);
 
     if (parseInt(tempDeck[0].value) >= parseInt(tempDeck[1].value)) {
+      setColorStatus("lost");
       setGameStatus("Battle LOST!");
       setGameText("You lost your pride as well as your money.");
       if (parseInt(rosesBetInput) > 0 || parseInt(sunflowersBetInput) > 0) {
@@ -68,6 +71,7 @@ const OneCard = () => {
         }).then((res) => res.text());
       }
     } else if (parseInt(tempDeck[0].value) < parseInt(tempDeck[1].value)) {
+      setColorStatus("won");
       setGameStatus("Battle WON!");
       setGameText(`Congratulations, but you're still a loser.`);
       if (parseInt(rosesBetInput) > 0 || parseInt(sunflowersBetInput) > 0) {
@@ -104,7 +108,6 @@ const OneCard = () => {
             <>
               <StyledRose />
               <NumRoses>{roses}</NumRoses>
-              <NumRosesBet>{rosesBetInput}</NumRosesBet>
               <RosesInput
                 name="roses"
                 id="roses"
@@ -117,7 +120,6 @@ const OneCard = () => {
               ></RosesInput>
               <StyledSunflower />
               <NumSunflowers>{sunflowers}</NumSunflowers>
-              <NumSunflowersBet>{sunflowersBetInput}</NumSunflowersBet>
               <SunflowersInput
                 name="sunflowers"
                 id="sunflowers"
@@ -132,7 +134,11 @@ const OneCard = () => {
           )}
         </GameFunctionsLeft>
         <GameFunctionsCentre>
-          <GameStatus>{gameStatus}</GameStatus>
+          {colorStatus === "won" && <GameStatusWon>{gameStatus}</GameStatusWon>}
+          {colorStatus === "lost" && (
+            <GameStatusLost>{gameStatus}</GameStatusLost>
+          )}
+          {!colorStatus && <GameStatusStart>{gameStatus}</GameStatusStart>}
           <LineBreak />
           <GameText>{gameText}</GameText>
         </GameFunctionsCentre>
@@ -148,15 +154,16 @@ const OneCard = () => {
 };
 
 const GameWrapper = styled.div`
-  position: relative;
-  margin: 0 20px;
-  height: calc(100vh - 120px);
+  background-size: cover;
+  background-image: url(${warWallpaper});
+  background-position: center;
+  margin: 5px auto;
+  height: 77vh;
 `;
 
 const OppSide = styled.section`
   display: flex;
   height: 44%;
-  background-color: ${COLORS.secondary};
   justify-content: space-evenly;
   align-items: center;
   border: 1px solid black;
@@ -165,7 +172,6 @@ const OppSide = styled.section`
 const SelfSide = styled.section`
   display: flex;
   height: 44%;
-  background-color: ${COLORS.primary};
   justify-content: space-evenly;
   align-items: center;
   border: 1px solid black;
@@ -181,37 +187,34 @@ const GameFunctions = styled.section`
 const GameFunctionsLeft = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const NumRoses = styled.div`
-  color: ${COLORS.red};
-  margin-right: 1vw;
-`;
-const NumSunflowers = styled.div`
-  margin-right: 1vw;
-  color: ${COLORS.orange};
+  justify-content: center;
+  margin-left: 10vw;
+  width: 20vw;
 `;
 
 const StyledRose = styled(IoIosRose)`
   color: ${COLORS.red};
   margin-right: 0.5vw;
-  font-size: 2rem;
+  font-size: 42px;
+  text-shadow: #000 0px 0px 3px;
+`;
+
+const NumRoses = styled.div`
+  color: ${COLORS.red};
+  margin-right: 1vw;
+  text-shadow: #000 0px 0px 3px;
 `;
 
 const StyledSunflower = styled(GiSunflower)`
   color: ${COLORS.orange};
   margin-right: 0.5vw;
-  font-size: 2.2rem;
+  font-size: 48px;
 `;
 
-const NumRosesBet = styled.div`
-  color: ${COLORS.blue};
-  margin-right: 0.5vw;
-`;
-
-const NumSunflowersBet = styled.div`
-  color: ${COLORS.blue};
-  margin-right: 0.5vw;
+const NumSunflowers = styled.div`
+  margin-right: 1vw;
+  color: ${COLORS.orange};
+  text-shadow: #000 0px 0px 3px;
 `;
 
 const RosesInput = styled.input`
@@ -228,32 +231,49 @@ const GameFunctionsCentre = styled.div`
   flex-flow: wrap;
   justify-content: center;
   text-align: center;
-  width: 25%;
+  width: 40vw;
   height: 100%;
-  /* font-size: 2vw; */
+  margin: 0 10px;
 `;
 
-const GameFunctionsRight = styled.div``;
-
-const GameStatus = styled.p`
-  color: ${COLORS.secondary};
+const GameStatusWon = styled.p`
+  color: green;
   height: 40%;
-  padding-top: 4%;
+  padding-top: 2%;
+`;
+
+const GameStatusLost = styled.p`
+  color: red;
+  height: 40%;
+  padding-top: 2%;
+`;
+
+const GameStatusStart = styled.p`
+  color: blue;
+  height: 40%;
+  padding-top: 2%;
 `;
 
 const GameText = styled.p`
   display: flex;
   align-items: center;
   height: 60%;
-  padding-bottom: 4%;
 `;
+
 const LineBreak = styled.div`
   width: 100%;
   height: 0px;
 `;
 
+const GameFunctionsRight = styled.div`
+  width: 30vw;
+`;
+
 const PlayButton = styled.button`
-  margin-right: 3vw;
+  font-family: "Playfair Display", serif;
+  padding: 5px 10px;
+  background-color: red;
+  color: white;
 `;
 
 export default OneCard;

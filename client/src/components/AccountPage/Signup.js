@@ -228,9 +228,6 @@ const RegistrationInput = styled.input`
 `;
 
 const ShowPasswordButton = styled.button`
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   margin-left: 12px;
   border: none;
   background-color: transparent;

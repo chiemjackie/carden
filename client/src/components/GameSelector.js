@@ -87,8 +87,8 @@ const GameSelector = () => {
 };
 
 const SelectorPageWrapper = styled.div`
-  margin: 8px auto;
-  text-shadow: #000 0px 0px 20px;
+  margin: 5px auto;
+  text-shadow: #000 0px 0px 1px;
 `;
 
 const WarSelectorWrapper = styled.div`
@@ -120,6 +120,7 @@ const WarTitleText = styled.h2`
   font-weight: bold;
   color: red;
   font-size: 48px;
+  text-shadow: #000 0px 0px 1px;
 `;
 
 const WarSelectionNavLink = styled(NavLink)`
@@ -127,6 +128,7 @@ const WarSelectionNavLink = styled(NavLink)`
   color: white;
   font-family: "Playfair Display", serif;
   font-size: 24px;
+  text-shadow: #000 0px 0px 1px;
 `;
 
 const WarRulesBox = styled.div`
@@ -156,6 +158,7 @@ const GoFishSelectorWrapper = styled.div`
   background-position: 50% 80%;
   opacity: 0.5;
   color: white;
+  text-shadow: #000 0px 0px 1px;
   height: 38.5vh;
   &:hover {
     opacity: 1;
@@ -175,6 +178,7 @@ const GoFishTitleText = styled(NavLink)`
   font-weight: bold;
   color: white;
   font-size: 48px;
+  text-shadow: #000 0px 0px 1px;
 `;
 
 const GoFishRulesBox = styled.div`

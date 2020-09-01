@@ -8,7 +8,7 @@ const GoFish = () => {
 };
 
 const Img = styled.div`
-  margin: 8px auto;
+  margin: 5px auto;
   height: 77vh;
   background-size: cover;
   background-image: url(${goFishWallpaper});

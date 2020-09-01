@@ -18,10 +18,12 @@ const Account = () => {
 };
 
 const AccountWrapper = styled.div`
+  margin: 5px auto;
   display: flex;
   flex-flow: wrap;
   justify-content: center;
   align-items: center;
+  height: 77vh;
 `;
 
 const Line = styled.hr`

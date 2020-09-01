@@ -4,7 +4,7 @@ export const COLORS = {
   tertiary: "#ffcc00",
   red: "red",
   orange: "darkorange",
-  cardback: "maroon",
+  cardback: "gray",
   blue: "blue",
   green: "green",
 };

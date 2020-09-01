@@ -4,6 +4,7 @@ import styled from "styled-components";
 import CardFront from "../CardGraphics/CardFront";
 import CardBack from "../CardGraphics/CardBack";
 import { COLORS, DECK } from "../../constants";
+import warWallpaper from "../../assets/war_wallpaper.jpg";
 
 const startingDeck = DECK;
 let oppDeck = [];
@@ -41,6 +42,7 @@ initShuffle();
 const FullDeck = () => {
   const [gameStatus, setGameStatus] = useState("Commence the war!");
   const [gameText, setGameText] = useState("No prisoners.");
+  const [colorStatus, setColorStatus] = useState(null);
 
   let oppRemainingCards = oppDeck.length - battleCards;
   let selfRemainingCards = selfDeck.length - battleCards;
@@ -75,6 +77,7 @@ const FullDeck = () => {
       }
       oppCardsInBattle = [];
       selfCardsInBattle = [];
+      setColorStatus("lost");
       setGameStatus("Battle LOST!");
       setGameText(
         `Cards ${oppCurrentCard.rank} and ${selfCurrentCard.rank}, and any cards at war are placed in the opponents' deck.`
@@ -92,6 +95,7 @@ const FullDeck = () => {
       }
       oppCardsInBattle = [];
       selfCardsInBattle = [];
+      setColorStatus("won");
       setGameStatus("Battle WON!");
       setGameText(
         `Cards ${oppCurrentCard.rank} and ${selfCurrentCard.rank}, and any cards at war are placed in your deck.`
@@ -104,6 +108,7 @@ const FullDeck = () => {
       oppCardsInBattle.push(oppCurrentCard);
       selfCardsInBattle.push(selfCurrentCard);
       battleCards++;
+      setColorStatus(null);
       setGameStatus("War!");
       setGameText("Pull another card to settle this battle, winner takes all.");
     } else if (
@@ -126,6 +131,7 @@ const FullDeck = () => {
     ) {
       disableButton();
       clearInterval(interval);
+      setColorStatus("lost");
       setGameStatus("You've LOST the war!");
       setGameText("Welp, now we're extinct.");
     } else if (
@@ -135,6 +141,7 @@ const FullDeck = () => {
     ) {
       disableButton();
       clearInterval(interval);
+      setColorStatus("won");
       setGameStatus("You've WON the war!");
       setGameText("Nice.");
     }
@@ -142,6 +149,7 @@ const FullDeck = () => {
 
   function reset() {
     turn = 0;
+    setColorStatus(null);
     setGameStatus("Start");
     setGameText("No prisoners.");
     oppDeck = [];
@@ -180,7 +188,11 @@ const FullDeck = () => {
           </Rounds>
         </GameFunctionsLeft>
         <GameFunctionsCentre>
-          <GameStatus>{gameStatus}</GameStatus>
+          {colorStatus === "won" && <GameStatusWon>{gameStatus}</GameStatusWon>}
+          {colorStatus === "lost" && (
+            <GameStatusLost>{gameStatus}</GameStatusLost>
+          )}
+          {!colorStatus && <GameStatusStart>{gameStatus}</GameStatusStart>}
           <LineBreak />
           <GameText>{gameText}</GameText>
         </GameFunctionsCentre>
@@ -206,16 +218,17 @@ const FullDeck = () => {
 };
 
 const GameWrapper = styled.div`
-  position: relative;
-  margin: 0 20px;
-  height: calc(100vh - 120px);
+  background-size: cover;
+  background-image: url(${warWallpaper});
+  background-position: center;
+  margin: 5px auto;
+  height: 77vh;
 `;
 
 const OppSide = styled.section`
   display: flex;
   height: 44%;
-  background-color: ${COLORS.secondary};
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   border: 1px solid black;
 `;
@@ -223,8 +236,7 @@ const OppSide = styled.section`
 const SelfSide = styled.section`
   display: flex;
   height: 44%;
-  background-color: ${COLORS.primary};
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   border: 1px solid black;
 `;
@@ -233,7 +245,7 @@ const GameFunctions = styled.section`
   display: flex;
   height: 12%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 const GameFunctionsLeft = styled.div`
@@ -247,6 +259,7 @@ const GameFunctionsCentre = styled.div`
   text-align: center;
   width: 25%;
   height: 100%;
+  margin: 0 10px;
   /* font-size: 2vw; */
 `;
 
@@ -257,30 +270,46 @@ const GameFunctionsRight = styled.div`
 const AutoPlayButton = styled.button`
   margin-right: 3vw;
   width: 75px;
+  font-family: "Playfair Display", serif;
 `;
 
 const NextButton = styled.button`
   margin-right: 3vw;
   width: 80px;
+  font-family: "Playfair Display", serif;
 `;
 
 const ResetButton = styled.button`
   margin: 0 3vw;
   width: 75px;
+  font-family: "Playfair Display", serif;
 `;
 
-const GameStatus = styled.p`
-  color: ${COLORS.secondary};
+const GameStatusWon = styled.p`
+  color: green;
   height: 40%;
-  padding-top: 4%;
+  padding-top: 3%;
+`;
+
+const GameStatusLost = styled.p`
+  color: red;
+  height: 40%;
+  padding-top: 3%;
+`;
+
+const GameStatusStart = styled.p`
+  color: blue;
+  height: 40%;
+  padding-top: 3%;
 `;
 
 const GameText = styled.p`
   display: flex;
   align-items: center;
   height: 60%;
-  padding-bottom: 4%;
+  padding-bottom: 2%;
 `;
+
 const LineBreak = styled.div`
   width: 100%;
   height: 0px;
@@ -288,6 +317,8 @@ const LineBreak = styled.div`
 
 const Rounds = styled.div`
   width: 80px;
+  color: white;
+  font-family: "Playfair Display", serif;
 `;
 
 export default FullDeck;

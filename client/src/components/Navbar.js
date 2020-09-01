@@ -61,7 +61,7 @@ const NavItem = styled.li`
   display: flex;
   align-items: center;
   text-align: center;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-family: "Playfair Display", serif;
 `;
 
 const NavLeftSection = styled.div`

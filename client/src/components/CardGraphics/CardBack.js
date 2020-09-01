@@ -40,6 +40,7 @@ const CardWrapper = styled.div`
   border: 1px solid black;
   border-radius: 10px;
   background-color: ${COLORS.cardback};
+  margin: 0 2vw;
 `;
 
 const CardBackWrapper = styled.div`
