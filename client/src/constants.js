@@ -1,11 +1,12 @@
 export const COLORS = {
   primary: "#6bd039",
-  secondary: "#d12197",
-  tertiary: "#18CBD1",
+  secondary: "#e600ac",
+  tertiary: "#ffcc00",
   red: "red",
   orange: "darkorange",
   cardback: "maroon",
   blue: "blue",
+  green: "green",
 };
 
 export const DECK = [

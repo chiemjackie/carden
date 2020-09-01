@@ -53,9 +53,8 @@ const NavbarWrapper = styled.nav`
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  margin: 5px 15px 30px;
+  margin: 5px 15px 0;
   font-weight: bold;
-  font-family: "Lucida Console", Courier, monospace;
 `;
 
 const NavItem = styled.li`
@@ -77,13 +76,8 @@ const NavRightSection = styled.div`
 `;
 
 const StyledLogo = styled.img`
-  margin-top: 5px;
-  min-height: 40px;
-  min-width: 130px;
-  max-height: 50px;
-  max-width: 162.5px;
-  height: 6vw;
-  width: 19.5vw;
+  height: 50px;
+  width: 160px;
 `;
 
 const StyledLink = styled(NavLink)`

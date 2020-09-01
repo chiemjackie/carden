@@ -3,48 +3,57 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 import { COLORS } from "../constants";
+import carden from "../assets/carden.png";
+import wallpaper from "../assets/wallpaper.jpg";
 
 const Homepage = () => {
   return (
     <HomepageWrapper>
-      <HomepageElement>
-        <HomepageElementContent>
-          Love playing cards? Love playing games with friends? Maybe just have a
-          gambling problem? You're in the right place.
-        </HomepageElementContent>
-      </HomepageElement>
-      <HomepageLink to="/account">
-        <HomepageLinkContent>
-          Feeling rebellious? Play without an account!
-        </HomepageLinkContent>
-      </HomepageLink>
-      <HomepageLink to="/account">
-        <HomepageLinkContent>
-          Not a complete loser? Set up an account, or login and play!
-        </HomepageLinkContent>
-      </HomepageLink>
+      <Main>
+        <MainElementContent>
+          <StyledLogo src={carden} />
+        </MainElementContent>
+        <MainElementContent>
+          where competition meets serenity
+        </MainElementContent>
+      </Main>
     </HomepageWrapper>
   );
 };
 
-const HomepageWrapper = styled.div``;
-
-const HomepageElement = styled.div`
-  padding: 10px;
-  background-color: ${COLORS.secondary};
-  margin: 10px;
-  color: white;
+const HomepageWrapper = styled.div`
+  height: 77vh;
+  background-size: cover;
+  background-image: url(${wallpaper});
+  background-position: center;
+  background-repeat: "no-repeat";
 `;
 
-const HomepageLink = styled(NavLink)``;
+const Main = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  margin-top: 8px;
+  height: 100%;
+`;
 
-const HomepageElementContent = styled.p``;
+const StyledLogo = styled.img`
+  height: 8rem;
+`;
 
-const HomepageLinkContent = styled.p`
-  padding: 10px;
-  background-color: ${COLORS.tertiary};
-  margin: 10px;
-  color: white;
+const MainElementContent = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 24px;
+  font-style: italic;
+  padding-bottom: 48px;
+  /* font-weight: bold; */
+  font-family: "Playfair Display", serif;
+  color: grey;
 `;
 
 export default Homepage;
