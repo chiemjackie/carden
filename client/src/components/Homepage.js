@@ -2,9 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-import { COLORS } from "../constants";
 import carden from "../assets/carden.png";
-import wallpaper from "../assets/wallpaper.jpg";
+import wallpaper from "../assets/homepage_wallpaper.jpg";
 
 const Homepage = () => {
   return (

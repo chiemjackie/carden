@@ -2,6 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
+import warWallpaper from "../assets/war_wallpaper.jpg";
+import goFishWallpaper from "../assets/go_fish_wallpaper.jpg";
+
 const GameSelector = () => {
   return (
     <SelectorPageWrapper>
@@ -83,15 +86,24 @@ const GameSelector = () => {
   );
 };
 
-const SelectorPageWrapper = styled.div``;
+const SelectorPageWrapper = styled.div`
+  margin: 8px auto;
+  text-shadow: #000 0px 0px 20px;
+`;
 
 const WarSelectorWrapper = styled.div`
   display: flex;
-  background: green;
-  color: white;
   align-items: center;
   justify-content: center;
-  height: 40vh;
+  background-size: cover;
+  background-image: url(${warWallpaper});
+  background-position: center;
+  opacity: 0.5;
+  height: 38.5vh;
+  color: red;
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const WarTitleBox = styled.div`
@@ -99,27 +111,36 @@ const WarTitleBox = styled.div`
   flex-flow: wrap;
   align-items: center;
   justify-content: center;
-  width: 20%;
+  width: 50%;
 `;
 
 const WarTitleText = styled.h2`
   margin-bottom: 3vh;
+  font-family: "Playfair Display", serif;
+  font-weight: bold;
+  color: red;
+  font-size: 48px;
 `;
 
 const WarSelectionNavLink = styled(NavLink)`
   margin-top: 3vh;
   color: white;
+  font-family: "Playfair Display", serif;
+  font-size: 24px;
 `;
 
 const WarRulesBox = styled.div`
-  width: 80%;
+  width: 50%;
   padding: 3vh;
 `;
 
-const WarRulesTextTop = styled.h4``;
+const WarRulesTextTop = styled.h4`
+  font-family: "Playfair Display", serif;
+`;
 
 const WarRulesTextTitle = styled.h4`
   padding-top: 25px;
+  font-family: "Playfair Display", serif;
 `;
 
 const WarRulesText = styled.p`
@@ -129,9 +150,16 @@ const WarRulesText = styled.p`
 const GoFishSelectorWrapper = styled.div`
   display: flex;
   align-items: center;
-  background: purple;
+  justify-content: center;
+  background-size: cover;
+  background-image: url(${goFishWallpaper});
+  background-position: 50% 80%;
+  opacity: 0.5;
   color: white;
-  height: 32vh;
+  height: 38.5vh;
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const GoFishTitleBox = styled.div`
@@ -139,17 +167,18 @@ const GoFishTitleBox = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 20%;
+  width: 50%;
 `;
 
 const GoFishTitleText = styled(NavLink)`
-  font-size: 24px;
+  font-family: "Playfair Display", serif;
   font-weight: bold;
   color: white;
+  font-size: 48px;
 `;
 
 const GoFishRulesBox = styled.div`
-  width: 80%;
+  width: 50%;
   padding: 3vh;
 `;
 
